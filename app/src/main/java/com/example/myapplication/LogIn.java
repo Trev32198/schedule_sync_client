@@ -1,16 +1,11 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -18,21 +13,30 @@ public class LogIn extends AppCompatActivity {
 
     EditText userName;
     EditText password;
-    Button createAccount;
-    Button logIn;
+    Button logInButton;
 
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_log_in);
 
         userName = findViewById(R.id.enterUserName);
         password = findViewById(R.id.enterPassword);
+        Button createAccountButton = findViewById(R.id.createAccount);
 
-        /*createAccount.setOnKeyListener(
-                void;
-        );
+        View.OnClickListener accountButton = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LogIn.this, CreateAccount.class));
+                LogIn.this.finish();
+            }
+        };
+                createAccountButton.setOnClickListener(accountButton);
+    }
 
+       /*
         logIn.setOnKeyListener(
                 void;
         );
@@ -44,7 +48,7 @@ public class LogIn extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
 
-    }
+
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
