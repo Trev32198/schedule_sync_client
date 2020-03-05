@@ -6,5 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccount">
 
+    <EditText
+        android:id="@+id/enterUserName"
+        android:layout_width="340dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginRight="99dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:singleLine="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/enterPassword"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:visibility="visible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterUserName" />
+
+    <EditText
+        android:id="@+id/enterPasswordAgain"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Re-enter Password"
+        android:inputType="textPassword"
+        android:visibility="visible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterPassword" />
+
+    <EditText
+        android:id="@+id/enterSecurityQuestion"
+        android:layout_width="340dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginRight="99dp"
+        android:ems="10"
+        android:hint="Enter Security Question"
+        android:inputType="text"
+        android:singleLine="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterPasswordAgain" />
+
+    <EditText
+        android:id="@+id/enterSecurityAnswer"
+        android:layout_width="340dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginRight="99dp"
+        android:ems="10"
+        android:hint="Enter Security Answer"
+        android:inputType="text"
+        android:singleLine="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterSecurityQuestion" />
+
+    <Button
+        android:id="@+id/createAccount"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:hint="Create Account"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterSecurityAnswer"
+        android:onClick="createAccountFunction"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

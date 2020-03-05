@@ -5,15 +5,19 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.net.*;
+import java.io.*;
 
 public class LogIn extends AppCompatActivity {
 
     EditText userName;
     EditText password;
-    Button logInButton;
 
     @Override
 
@@ -22,25 +26,60 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
+
+
+
         userName = findViewById(R.id.enterUserName);
         password = findViewById(R.id.enterPassword);
         Button createAccountButton = findViewById(R.id.createAccount);
 
-        View.OnClickListener accountButton = new View.OnClickListener() {
+        View.OnClickListener accountListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LogIn.this, CreateAccount.class));
-                LogIn.this.finish();
+                //LogIn.this.finish();
             }
         };
-                createAccountButton.setOnClickListener(accountButton);
-    }
+                createAccountButton.setOnClickListener(accountListener);
 
-       /*
-        logIn.setOnKeyListener(
-                void;
-        );
-        */
+    }
+    public void logInFunction(View view){
+        if (TextUtils.isEmpty(userName.getText())){
+            userName.setError("Username is required");
+        }
+        if (TextUtils.isEmpty((password.getText()))){
+            password.setError(("Password is required"));
+        }
+        else{
+            System.out.println("OOOPO");
+        }
+
+
+
+
+
+
+        /*
+        try {
+            while (true) {
+
+                Socket s = new Socket("127.0.0.1", 4963);
+                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
+                DataInputStream dis = new DataInputStream((s.getInputStream()));
+                dos.writeUTF("THIS IS A TEST");
+                dos.close();
+                dis.close();
+                s.close();
+            }
+        }
+        catch(UnknownHostException e){
+            System.out.println("Unknown host");
+        }
+        catch (IOException e){
+            System.out.println("IO Problem");
+        }*/
+
+    }
         //Im saving the below commented out code for future screens
 
 
@@ -70,5 +109,25 @@ public class LogIn extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+
+        try {
+            while (true) {
+
+                Socket s = new Socket("127.0.0.1", 4963);
+                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
+                DataInputStream dis = new DataInputStream((s.getInputStream()));
+                dos.writeUTF("THIS IS A TEST");
+                dos.close();
+                dis.close();
+                s.close();
+            }
+        }
+            catch(UnknownHostException e){
+            System.out.println("Unknown host");
+        }
+        catch (IOException e){
+            System.out.println("IO Problem");
+        }
+
     }*/
 }
