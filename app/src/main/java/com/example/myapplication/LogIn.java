@@ -75,8 +75,7 @@ public class LogIn extends AppCompatActivity {
                 System.out.println("Unknown host");
             } catch (IOException e) {
                 System.out.println("IO Problem");
-                startActivity(new Intent(LogIn.this, HomeScreen.class));
-                LogIn.this.finish();
+
             }
         }
 
