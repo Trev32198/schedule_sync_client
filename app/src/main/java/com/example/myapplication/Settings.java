@@ -24,6 +24,8 @@ public class Settings extends AppCompatActivity {
     EditText newSA;
     ClientCommunicator cc = new ClientCommunicator();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,81 +38,42 @@ public class Settings extends AppCompatActivity {
     }
 
     public void changePassword(View view) {
+        enterPasswordToChange = findViewById(R.id.enterPasswordToChange);
+        enterPasswordToChange = findViewById(R.id.enterNewPassword);
+
         if (TextUtils.isEmpty(enterPasswordToChange.getText())) {
             enterPasswordToChange.setError("Password is required");
         }
         if (TextUtils.isEmpty((enterNewPassword.getText()))) {
             enterNewPassword.setError(("New password can't be blank"));
-        }
-        else{
-            try {
-                while (true) {
+        } else {
+            if (cc.changePW(enterNewPassword.toString())) {
 
-                    Socket s = new Socket("10.0.2.2", 24602);
-                    DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-                    DataInputStream dis = new DataInputStream((s.getInputStream()));
-
-                    if (cc.changePW(enterNewPassword.toString())){
-
-                        startActivity(new Intent(Settings.this, HomeScreen.class));
-                        Settings.this.finish();
-                    }
-                    dos.close();
-                    dis.close();
-                    s.close();
-                }
-            } catch (UnknownHostException e) {
-                System.out.println("Unknown host");
-            } catch (IOException e) {
-                System.out.println("IO Problem");
+                startActivity(new Intent(Settings.this, HomeScreen.class));
+                Settings.this.finish();
             }
         }
     }
-    public void changeRecovery(View view) {try {
-        while (true) {
+    public void changeRecovery(View view) {
+            newSQ = findViewById(R.id.newRecoveryQuestion);
+            newSA = findViewById(R.id.newRecoveryAnswer);
 
-            Socket s = new Socket("10.0.2.2", 24602);
-            DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-            DataInputStream dis = new DataInputStream((s.getInputStream()));
 
-            if (        cc.changeSQ(newSQ.toString(), newSA.toString())){
+        if (cc.changeSQ(newSQ.toString(), newSA.toString())) {
 
 
                 startActivity(new Intent(Settings.this, HomeScreen.class));
                 Settings.this.finish();
             }
-            dos.close();
-            dis.close();
-            s.close();
         }
-    } catch (UnknownHostException e) {
-        System.out.println("Unknown host");
-    } catch (IOException e) {
-        System.out.println("IO Problem");
-    }
-    }
+
     public void deleteAccount(View view) {
-        try {
-            while (true) {
-
-                Socket s = new Socket("10.0.2.2", 24602);
-                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-                DataInputStream dis = new DataInputStream((s.getInputStream()));
-
                 if (cc.deleteAccount()){
 
                     startActivity(new Intent(Settings.this, HomeScreen.class));
                     Settings.this.finish();
                 }
-                dos.close();
-                dis.close();
-                s.close();
-            }
-        } catch (UnknownHostException e) {
-            System.out.println("Unknown host");
-        } catch (IOException e) {
-            System.out.println("IO Problem");
-        }
-    }
+                }
+
 
 }
