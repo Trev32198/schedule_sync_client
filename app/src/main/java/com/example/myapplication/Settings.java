@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -38,6 +39,11 @@ public class Settings extends AppCompatActivity {
     }
 
     public void changePassword(View view) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         enterPasswordToChange = findViewById(R.id.enterPasswordToChange);
         enterPasswordToChange = findViewById(R.id.enterNewPassword);
 
@@ -55,7 +61,12 @@ public class Settings extends AppCompatActivity {
         }
     }
     public void changeRecovery(View view) {
-            newSQ = findViewById(R.id.newRecoveryQuestion);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
+        newSQ = findViewById(R.id.newRecoveryQuestion);
             newSA = findViewById(R.id.newRecoveryAnswer);
 
 
@@ -68,7 +79,12 @@ public class Settings extends AppCompatActivity {
         }
 
     public void deleteAccount(View view) {
-                if (cc.deleteAccount()){
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
+        if (cc.deleteAccount()){
 
                     startActivity(new Intent(Settings.this, HomeScreen.class));
                     Settings.this.finish();
