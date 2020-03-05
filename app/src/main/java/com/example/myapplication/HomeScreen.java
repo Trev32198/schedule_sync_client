@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +28,11 @@ public class HomeScreen extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void openSettings(View view){
+        startActivity(new Intent(HomeScreen.this, Settings.class));
+        HomeScreen.this.finish();
     }
 
 }

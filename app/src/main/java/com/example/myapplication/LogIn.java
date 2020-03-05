@@ -38,7 +38,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LogIn.this, CreateAccount.class));
-                //LogIn.this.finish();
+                LogIn.this.finish();
             }
         };
                 createAccountButton.setOnClickListener(accountListener);
@@ -53,34 +53,32 @@ public class LogIn extends AppCompatActivity {
         if (TextUtils.isEmpty((password.getText()))){
             password.setError(("Password is required"));
         }
-        else{
+        else {
             cc.setCredentials(userName.toString(), password.toString(), "pw");
-        }
 
 
+            try {
+                while (true) {
 
+                    Socket s = new Socket("10.0.2.2", 24602);
+                    DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
+                    DataInputStream dis = new DataInputStream((s.getInputStream()));
 
-
-
-        /*
-        try {
-            while (true) {
-
-                Socket s = new Socket("127.0.0.1", 4963);
-                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-                DataInputStream dis = new DataInputStream((s.getInputStream()));
-                dos.writeUTF("THIS IS A TEST");
-                dos.close();
-                dis.close();
-                s.close();
+                    cc.setCredentials(userName.toString(), password.toString(), "pw");
+                    dos.close();
+                    dis.close();
+                    s.close();
+                    startActivity(new Intent(LogIn.this, HomeScreen.class));
+                    LogIn.this.finish();
+                }
+            } catch (UnknownHostException e) {
+                System.out.println("Unknown host");
+            } catch (IOException e) {
+                System.out.println("IO Problem");
+                startActivity(new Intent(LogIn.this, HomeScreen.class));
+                LogIn.this.finish();
             }
         }
-        catch(UnknownHostException e){
-            System.out.println("Unknown host");
-        }
-        catch (IOException e){
-            System.out.println("IO Problem");
-        }*/
 
     }
         //Im saving the below commented out code for future screens

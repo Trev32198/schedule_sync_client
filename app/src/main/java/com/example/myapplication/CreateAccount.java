@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -10,6 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 
 public class CreateAccount extends AppCompatActivity {
@@ -69,8 +76,27 @@ public class CreateAccount extends AppCompatActivity {
         if (enterPassword.getText().equals(enterPasswordAgain.getText())) {
             enterPasswordAgain.setError("Passwords don't match");
         } else {
-            cc.createAccount(enterUserName.toString(), enterPassword.toString(),
-                    enterSecurityQuestion.toString(), enterSecurityAnswer.toString());
+            try {
+            while (true) {
+
+                Socket s = new Socket("10.0.2.2", 24602);
+                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
+                DataInputStream dis = new DataInputStream((s.getInputStream()));
+
+                if (cc.createAccount(enterUserName.toString(), enterPassword.toString(),
+                        enterSecurityQuestion.toString(), enterSecurityAnswer.toString())){
+                    startActivity(new Intent(CreateAccount.this, HomeScreen.class));
+                    CreateAccount.this.finish();
+                }
+                dos.close();
+                dis.close();
+                s.close();
+            }
+        } catch (UnknownHostException e) {
+            System.out.println("Unknown host");
+        } catch (IOException e) {
+            System.out.println("IO Problem");
+        }
 
         }
     }

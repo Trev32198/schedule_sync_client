@@ -1,12 +1,19 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".Settings">
+
+
 
     <FrameLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:visibility="visible">
 
         <EditText
             android:id="@+id/enterNewPassword"
@@ -14,8 +21,8 @@
             android:layout_height="40dp"
             android:layout_margin="110dp"
             android:ems="10"
-            android:inputType="textPassword"
             android:hint="Enter New Password"
+            android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@+id/enterPasswordToChange" />
 
         <androidx.appcompat.widget.Toolbar
@@ -31,8 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="60dp"
-            android:hint="Enter Password to reset"
             android:ems="10"
+            android:hint="Enter Password to reset"
             android:inputType="textPassword" />
 
         <Button
@@ -40,8 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="150dp"
-            android:text="Confirm"
-            android:onClick="changePassword"/>
+            android:onClick="changePassword"
+            android:text="Confirm" />
 
         <EditText
             android:id="@+id/newRecoveryQuestion"
@@ -79,4 +86,5 @@
 
 
     </FrameLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
