@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <EditText
+            android:id="@+id/enterNewPassword"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_margin="110dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Enter New Password"
+            app:layout_constraintTop_toBottomOf="@+id/enterPasswordToChange" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <EditText
+            android:id="@+id/enterPasswordToChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="60dp"
+            android:hint="Enter Password to reset"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/confirmPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="150dp"
+            android:text="Confirm"
+            android:onClick="changePassword"/>
+
+        <EditText
+            android:id="@+id/newRecoveryQuestion"
+            android:layout_width="319dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="200dp"
+            android:ems="10"
+            android:hint="Enter new recovery question"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/newRecoveryAnswer"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="250dp"
+            android:ems="10"
+            android:hint="Enter new recovery answer"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/confirmRecoveryChange"
+            android:layout_width="119dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="300dp"
+            android:onClick="changeRecovery"
+            android:text="Confirm" />
+
+        <Button
+            android:id="@+id/deleteAccount"
+            android:layout_width="165dp"
+            android:layout_height="62dp"
+            android:layout_margin="350dp"
+            android:onClick="deleteAccount"
+            android:text="Delete account" />
+
+
+    </FrameLayout>
+</LinearLayout>

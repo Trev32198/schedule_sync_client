@@ -1,15 +1,16 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -18,6 +19,10 @@ public class CreateAccount extends AppCompatActivity {
     EditText enterPasswordAgain;
     EditText enterSecurityQuestion;
     EditText enterSecurityAnswer;
+
+
+
+    ClientCommunicator cc = new ClientCommunicator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +35,22 @@ public class CreateAccount extends AppCompatActivity {
         enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
         enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
 
-
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
+
+
+
     public void createAccountFunction(View view) {
+        enterUserName = findViewById(R.id.enterUserName);
+        enterPassword = findViewById(R.id.enterPassword);
+        enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
+        enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
+        enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
+
         if (TextUtils.isEmpty(enterUserName.getText())) {
             enterUserName.setError("Username is required");
         }
@@ -52,12 +69,21 @@ public class CreateAccount extends AppCompatActivity {
         if (enterPassword.getText().equals(enterPasswordAgain.getText())) {
             enterPasswordAgain.setError("Passwords don't match");
         } else {
-            System.out.println("OOOPO");
+            cc.createAccount(enterUserName.toString(), enterPassword.toString(),
+                    enterSecurityQuestion.toString(), enterSecurityAnswer.toString());
 
         }
     }
 
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //Toolbar toolbar = findViewById(R.id.toolbar);
     //setSupportActionBar(toolbar);

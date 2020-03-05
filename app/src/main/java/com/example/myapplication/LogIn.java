@@ -16,11 +16,12 @@ import java.io.*;
 
 public class LogIn extends AppCompatActivity {
 
+
+    ClientCommunicator cc = new ClientCommunicator();
     EditText userName;
     EditText password;
 
     @Override
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,8 @@ public class LogIn extends AppCompatActivity {
         };
                 createAccountButton.setOnClickListener(accountListener);
 
+
+
     }
     public void logInFunction(View view){
         if (TextUtils.isEmpty(userName.getText())){
@@ -51,7 +54,7 @@ public class LogIn extends AppCompatActivity {
             password.setError(("Password is required"));
         }
         else{
-            System.out.println("OOOPO");
+            cc.setCredentials(userName.toString(), password.toString(), "pw");
         }
 
 
