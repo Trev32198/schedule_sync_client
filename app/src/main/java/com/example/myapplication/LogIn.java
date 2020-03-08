@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +17,6 @@ import java.io.*;
 
 public class LogIn extends AppCompatActivity {
 
-
-    ClientCommunicator cc = new ClientCommunicator();
     EditText userName;
     EditText password;
 
@@ -47,6 +46,8 @@ public class LogIn extends AppCompatActivity {
 
     }
     public void logInFunction(View view){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         if (TextUtils.isEmpty(userName.getText())){
             userName.setError("Username is required");
         }
@@ -54,29 +55,9 @@ public class LogIn extends AppCompatActivity {
             password.setError(("Password is required"));
         }
         else {
-            cc.setCredentials(userName.toString(), password.toString(), "pw");
-
-
-            try {
-                while (true) {
-
-                    Socket s = new Socket("10.0.2.2", 24602);
-                    DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-                    DataInputStream dis = new DataInputStream((s.getInputStream()));
-
-                    cc.setCredentials(userName.toString(), password.toString(), "pw");
-                    dos.close();
-                    dis.close();
-                    s.close();
+            ClientCommunicator.setCredentials(userName.getText().toString(), password.getText().toString(), "pw");
                     startActivity(new Intent(LogIn.this, HomeScreen.class));
                     LogIn.this.finish();
-                }
-            } catch (UnknownHostException e) {
-                System.out.println("Unknown host");
-            } catch (IOException e) {
-                System.out.println("IO Problem");
-
-            }
         }
 
     }
