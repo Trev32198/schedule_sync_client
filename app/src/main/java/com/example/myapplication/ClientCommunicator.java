@@ -11,8 +11,7 @@ public class ClientCommunicator
     private final String SUCCESS = "SUCCESS" + (char)(0x04);
     private final String FAILURE = "FAILURE" + (char)(0x04);
     private final int PORT = 24602;
-    private final String SERVER = "127.0.0.1";
-    private String username = "";
+    private final String SERVER = "10.0.2.2";    private String username = "";
     private String password = "";
     private String authType = "pw";
     private String sq = "";

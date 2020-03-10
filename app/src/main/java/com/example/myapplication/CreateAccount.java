@@ -1,22 +1,14 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import androidx.appcompat.widget.Toolbar;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class CreateAccount extends AppCompatActivity {
@@ -36,16 +28,7 @@ public class CreateAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        enterUserName = findViewById(R.id.enterUserName);
-        enterPassword = findViewById(R.id.enterPassword);
-        enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
-        enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
-        enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
 
@@ -57,6 +40,10 @@ public class CreateAccount extends AppCompatActivity {
         enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
         enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
         enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
 
         if (TextUtils.isEmpty(enterUserName.getText())) {
             enterUserName.setError("Username is required");
@@ -76,31 +63,17 @@ public class CreateAccount extends AppCompatActivity {
         if (enterPassword.getText().equals(enterPasswordAgain.getText())) {
             enterPasswordAgain.setError("Passwords don't match");
         } else {
-            try {
-            while (true) {
 
-                Socket s = new Socket("10.0.2.2", 24602);
-                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-                DataInputStream dis = new DataInputStream((s.getInputStream()));
-
-                if (cc.createAccount(enterUserName.toString(), enterPassword.toString(),
-                        enterSecurityQuestion.toString(), enterSecurityAnswer.toString())){
-                    startActivity(new Intent(CreateAccount.this, HomeScreen.class));
-                    CreateAccount.this.finish();
-                }
-                dos.close();
-                dis.close();
-                s.close();
+            if (cc.createAccount(enterUserName.getText().toString(), enterPassword.toString(),
+                    enterSecurityQuestion.toString(), enterSecurityAnswer.toString())) {
+                startActivity(new Intent(CreateAccount.this, HomeScreen.class));
+                CreateAccount.this.finish();
+            } else {
+                enterUserName.setError("Account Creation Failed");
             }
-        } catch (UnknownHostException e) {
-            System.out.println("Unknown host");
-        } catch (IOException e) {
-            System.out.println("IO Problem");
-        }
 
         }
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

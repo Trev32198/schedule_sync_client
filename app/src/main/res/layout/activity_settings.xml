@@ -70,7 +70,7 @@
 
         <Button
             android:id="@+id/confirmRecoveryChange"
-            android:layout_width="119dp"
+            android:layout_width="109dp"
             android:layout_height="wrap_content"
             android:layout_margin="300dp"
             android:onClick="changeRecovery"
