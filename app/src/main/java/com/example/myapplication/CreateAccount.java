@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,19 +18,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+import android.os.StrictMode;
 
 public class CreateAccount extends AppCompatActivity {
+
+
 
     EditText enterUserName;
     EditText enterPassword;
     EditText enterPasswordAgain;
     EditText enterSecurityQuestion;
     EditText enterSecurityAnswer;
-
-
-
-    ClientCommunicator cc = new ClientCommunicator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +48,11 @@ public class CreateAccount extends AppCompatActivity {
     }
 
 
-
-
     public void createAccountFunction(View view) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         enterUserName = findViewById(R.id.enterUserName);
         enterPassword = findViewById(R.id.enterPassword);
         enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
@@ -76,28 +77,11 @@ public class CreateAccount extends AppCompatActivity {
         if (enterPassword.getText().equals(enterPasswordAgain.getText())) {
             enterPasswordAgain.setError("Passwords don't match");
         } else {
-            try {
-            while (true) {
-
-                Socket s = new Socket("10.0.2.2", 24602);
-                DataOutputStream dos = new DataOutputStream((s.getOutputStream()));
-                DataInputStream dis = new DataInputStream((s.getInputStream()));
-
-                if (cc.createAccount(enterUserName.toString(), enterPassword.toString(),
-                        enterSecurityQuestion.toString(), enterSecurityAnswer.toString())){
+                if (ClientCommunicator.createAccount(enterUserName.getText().toString(), enterPassword.getText().toString(),
+                        enterSecurityQuestion.getText().toString(), enterSecurityAnswer.getText().toString())) {
                     startActivity(new Intent(CreateAccount.this, HomeScreen.class));
                     CreateAccount.this.finish();
                 }
-                dos.close();
-                dis.close();
-                s.close();
-            }
-        } catch (UnknownHostException e) {
-            System.out.println("Unknown host");
-        } catch (IOException e) {
-            System.out.println("IO Problem");
-        }
-
         }
     }
 
