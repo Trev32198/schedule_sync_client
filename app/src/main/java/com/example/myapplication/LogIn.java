@@ -2,17 +2,21 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import java.net.*;
+import java.io.*;
+
 public class LogIn extends AppCompatActivity {
 
-
-    ClientCommunicator cc = new ClientCommunicator();
     EditText userName;
     EditText password;
 
@@ -24,17 +28,26 @@ public class LogIn extends AppCompatActivity {
 
 
 
-    }
-        public void logInFunction(View view){
 
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-            StrictMode.setThreadPolicy(policy);
-
-
-            userName = findViewById(R.id.enterUserName);
+        userName = findViewById(R.id.enterUserName);
         password = findViewById(R.id.enterPassword);
+        Button createAccountButton = findViewById(R.id.createAccount);
 
+        View.OnClickListener accountListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LogIn.this, CreateAccount.class));
+                LogIn.this.finish();
+            }
+        };
+                createAccountButton.setOnClickListener(accountListener);
+
+
+
+    }
+    public void logInFunction(View view){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         if (TextUtils.isEmpty(userName.getText())){
             userName.setError("Username is required");
         }
@@ -42,15 +55,10 @@ public class LogIn extends AppCompatActivity {
             password.setError(("Password is required"));
         }
         else {
-            cc.setCredentials(userName.toString(), password.toString(), "pw");
-            startActivity(new Intent(LogIn.this, HomeScreen.class));
-            LogIn.this.finish();
-                }
-
+            ClientCommunicator.setCredentials(userName.getText().toString(), password.getText().toString(), "pw");
+                    startActivity(new Intent(LogIn.this, HomeScreen.class));
+                    LogIn.this.finish();
         }
-        public void createAccountFunction(View view){
-            startActivity(new Intent(LogIn.this, CreateAccount.class));
-            LogIn.this.finish();
 
     }
         //Im saving the below commented out code for future screens

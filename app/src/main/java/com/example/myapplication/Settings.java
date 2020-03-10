@@ -23,8 +23,6 @@ public class Settings extends AppCompatActivity {
     EditText enterNewPassword;
     EditText newSQ;
     EditText newSA;
-    ClientCommunicator cc = new ClientCommunicator();
-
 
 
     @Override
@@ -45,7 +43,7 @@ public class Settings extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         enterPasswordToChange = findViewById(R.id.enterPasswordToChange);
-        enterPasswordToChange = findViewById(R.id.enterNewPassword);
+        enterNewPassword = findViewById(R.id.enterNewPassword);
 
         if (TextUtils.isEmpty(enterPasswordToChange.getText())) {
             enterPasswordToChange.setError("Password is required");
@@ -53,7 +51,7 @@ public class Settings extends AppCompatActivity {
         if (TextUtils.isEmpty((enterNewPassword.getText()))) {
             enterNewPassword.setError(("New password can't be blank"));
         } else {
-            if (cc.changePW(enterNewPassword.toString())) {
+            if (ClientCommunicator.changePW(enterNewPassword.getText().toString())) {
 
                 startActivity(new Intent(Settings.this, HomeScreen.class));
                 Settings.this.finish();
@@ -70,7 +68,7 @@ public class Settings extends AppCompatActivity {
             newSA = findViewById(R.id.newRecoveryAnswer);
 
 
-        if (cc.changeSQ(newSQ.toString(), newSA.toString())) {
+        if (ClientCommunicator.changeSQ(newSQ.getText().toString(), newSA.getText().toString())) {
 
 
                 startActivity(new Intent(Settings.this, HomeScreen.class));
@@ -84,7 +82,7 @@ public class Settings extends AppCompatActivity {
 
         StrictMode.setThreadPolicy(policy);
 
-        if (cc.deleteAccount()){
+        if (ClientCommunicator.deleteAccount()){
 
                     startActivity(new Intent(Settings.this, HomeScreen.class));
                     Settings.this.finish();

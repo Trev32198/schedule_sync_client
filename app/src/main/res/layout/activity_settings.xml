@@ -70,15 +70,17 @@
 
         <Button
             android:id="@+id/confirmRecoveryChange"
-            android:layout_width="109dp"
-            android:layout_height="wrap_content"
+            android:layout_width="119dp"
+            android:layout_height="60dp"
             android:layout_margin="300dp"
             android:onClick="changeRecovery"
-            android:text="Confirm" />
+            android:text="Confirm"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/deleteAccount"
-            android:layout_width="165dp"
+            android:layout_width="168dp"
             android:layout_height="62dp"
             android:layout_margin="350dp"
             android:onClick="deleteAccount"

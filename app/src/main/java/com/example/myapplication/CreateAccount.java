@@ -1,17 +1,28 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import androidx.appcompat.widget.Toolbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import android.os.StrictMode;
 
 public class CreateAccount extends AppCompatActivity {
+
+
 
     EditText enterUserName;
     EditText enterPassword;
@@ -19,31 +30,34 @@ public class CreateAccount extends AppCompatActivity {
     EditText enterSecurityQuestion;
     EditText enterSecurityAnswer;
 
-
-
-    ClientCommunicator cc = new ClientCommunicator();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-
-    }
-
-
-
-
-    public void createAccountFunction(View view) {
         enterUserName = findViewById(R.id.enterUserName);
         enterPassword = findViewById(R.id.enterPassword);
         enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
         enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
         enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
 
+
+    public void createAccountFunction(View view) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        enterUserName = findViewById(R.id.enterUserName);
+        enterPassword = findViewById(R.id.enterPassword);
+        enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
+        enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
+        enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
 
         if (TextUtils.isEmpty(enterUserName.getText())) {
             enterUserName.setError("Username is required");
@@ -63,17 +77,14 @@ public class CreateAccount extends AppCompatActivity {
         if (enterPassword.getText().equals(enterPasswordAgain.getText())) {
             enterPasswordAgain.setError("Passwords don't match");
         } else {
-
-            if (cc.createAccount(enterUserName.getText().toString(), enterPassword.toString(),
-                    enterSecurityQuestion.toString(), enterSecurityAnswer.toString())) {
-                startActivity(new Intent(CreateAccount.this, HomeScreen.class));
-                CreateAccount.this.finish();
-            } else {
-                enterUserName.setError("Account Creation Failed");
-            }
-
+                if (ClientCommunicator.createAccount(enterUserName.getText().toString(), enterPassword.getText().toString(),
+                        enterSecurityQuestion.getText().toString(), enterSecurityAnswer.getText().toString())) {
+                    startActivity(new Intent(CreateAccount.this, HomeScreen.class));
+                    CreateAccount.this.finish();
+                }
         }
     }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
