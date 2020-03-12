@@ -108,5 +108,4 @@
         android:onClick="createAccountFunction"/>
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
