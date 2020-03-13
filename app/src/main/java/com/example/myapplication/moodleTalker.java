@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.StringUtil.*;
 
 
 public class moodleTalker {
@@ -54,10 +55,15 @@ public class moodleTalker {
         string rawTok = "";
         //string to start storing our output from this http post request
         for (int c; (c = in.read()) >= 0;)
-            rawTok = rawToke + (char)c;
+            rawTok = rawTok + (char)c;
             //adding each new character to the string 
-            
-        
+        try{
+            tokn = StringUtils.substringBetween(rawTok, "{\"token\":/"",","\"privatetoken\":\"hUE1xvhAZBleNiwX8if3cPZ6Guzul10yHP9a5pa8GhI0gK0jo8Q2CtGqwVYAh0BK\"}");
+            return true;
+        }
+        catch( Exception exception){
+            return false;
+        }
         //TO BE ADDED: EXTRACTING THE USER TOKEN FROM THE RAW OUTPUT FROM THE HTTP REQUEST
             
     }
