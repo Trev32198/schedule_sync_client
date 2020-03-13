@@ -1,7 +1,8 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
+import java.StringUtil.*;
+//cid refers to the integer value moodle gives each course in the system. Returned by api calls. EX. example 00 has a CID of 2
 
 public class moodleTalker {
     private string token;
@@ -54,11 +55,16 @@ public class moodleTalker {
         string rawTok = "";
         //string to start storing our output from this http post request
         for (int c; (c = in.read()) >= 0;)
-            rawTok = rawToke + (char)c;
+            rawTok = rawTok + (char)c;
             //adding each new character to the string 
-            
-        
-        //TO BE ADDED: EXTRACTING THE USER TOKEN FROM THE RAW OUTPUT FROM THE HTTP REQUEST
+        try{
+            tokn = StringUtils.substringBetween(rawTok, "{\"token\":/"",","\"privatetoken\":\"hUE1xvhAZBleNiwX8if3cPZ6Guzul10yHP9a5pa8GhI0gK0jo8Q2CtGqwVYAh0BK\"}");
+            return true;
+        }
+        catch( Exception exception){
+            return false;
+        }
+        //TBD: EXTRACTING THE USER TOKEN FROM THE RAW OUTPUT FROM THE HTTP REQUEST
             
     }
     
@@ -91,10 +97,10 @@ public class moodleTalker {
             rawClass = rawClass + (char)c;
             
         
-        //TO BE ADDED, EXTRACTING USER COURSES FROM RAW OUTPUT
+        //TBD:, EXTRACTING USER COURSES FROM RAW OUTPUT: key- value pair shortname : CID
     }
     public String[] returnClassList(){
-        //GIVING US THE 
+        //TBD:GIVING US THE list of classes enrolled and CIDs
 
     }
 
@@ -131,11 +137,11 @@ public class moodleTalker {
         for (int c; (c = in.read()) >= 0;)
             rawAs = rawAs + (char)c;
     
-
+        //TBD: parse xml from assighnments list and return a key value pair of assignment name: datetime
 
     }
     public void returnAssignmentDat(){
-        //this will run a check for each id using the cid and return the assignments from each
+        //TBD:this will run a check for each id using the cid and return the assignments from each
     }
 
     public void returnAsmnt(){
