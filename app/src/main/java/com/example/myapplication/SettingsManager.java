@@ -51,4 +51,22 @@ public class SettingsManager extends Activity
     {
         return prefs.getString("moodle_password", "");
     }
+    // Store a specified Google username and password
+    public void storeGoogleCredentials(String username, String password)
+    {
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString("google_username", username);
+        prefsEditor.putString("google_password", password);
+        prefsEditor.apply();
+    }
+    // Get the stored Google username
+    public String getGoogleUsername()
+    {
+        return prefs.getString("google_username", "");
+    }
+    // Get the stored Google password
+    public String getGooglePassword()
+    {
+        return prefs.getString("google_password", "");
+    }
 }
