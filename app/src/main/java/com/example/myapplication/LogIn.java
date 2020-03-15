@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -46,8 +45,6 @@ public class LogIn extends AppCompatActivity {
 
     }
     public void logInFunction(View view){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
         if (TextUtils.isEmpty(userName.getText())){
             userName.setError("Username is required");
         }
