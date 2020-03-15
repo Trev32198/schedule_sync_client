@@ -58,7 +58,7 @@ public class moodleTalker {
             rawTok = rawTok + (char)c;
             //adding each new character to the string 
         try{
-            tokn = StringUtils.substringBetween(rawTok, "{\"token\":/"",","\"privatetoken\":\"hUE1xvhAZBleNiwX8if3cPZ6Guzul10yHP9a5pa8GhI0gK0jo8Q2CtGqwVYAh0BK\"}");
+            tokn = StringUtils.substringBetween(rawTok, "{\"token\":/"",","\"privatetoken\"");
             return true;
         }
         catch( Exception exception){
