@@ -1,4 +1,6 @@
 package com.example.myapplication;// Networking functionality
+import android.os.StrictMode;
+
 import java.io.*;
 import java.net.*;
 
@@ -25,6 +27,9 @@ public class ClientCommunicator
     // Sends command to server and gets its response
     private static String sendToServer(String command, String args[]) throws UnknownHostException, IOException
     {
+        // To be able to do a little networking on main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         String toSend = command;
         for (String arg : args)
         {

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,11 +17,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import android.os.StrictMode;
 
 public class CreateAccount extends AppCompatActivity {
-
-
 
     EditText enterUserName;
     EditText enterPassword;
@@ -49,9 +45,6 @@ public class CreateAccount extends AppCompatActivity {
 
 
     public void createAccountFunction(View view) {
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
         enterUserName = findViewById(R.id.enterUserName);
         enterPassword = findViewById(R.id.enterPassword);
