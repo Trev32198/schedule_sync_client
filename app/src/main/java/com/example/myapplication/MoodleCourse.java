@@ -3,18 +3,12 @@ package com.example.myapplication;
 public class MoodleCourse
 {
     private String shortName;
-    private String cid;
-    public MoodleCourse(String name, String id)
+    public MoodleCourse(String shortName)
     {
-        shortName = name;
-        cid = id;
+        this.shortName = shortName;
     }
     public String getShortName()
     {
         return shortName;
-    }
-    public String getCid()
-    {
-        return cid;
     }
 }
