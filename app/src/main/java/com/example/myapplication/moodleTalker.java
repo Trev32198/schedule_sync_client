@@ -7,19 +7,17 @@ import java.StringUtil.*;
 public class moodleTalker {
     private string token;
     //user token for moodle, Will be needed to access moodle for other webservices besides the gettoken service
-    private string usrn;
-    //moodle username of user to be stored
-    private string password;
-    //moodle password of user to be stored
 
-    public moodleTalker ( string pass, string usr) {
+
+
+    //public moodleTalker ( string pass, string usr) {
         //when creating a moodletalker object, which will be during registration, you need the username and password of user.
-        usrn = usr;
+        //usrn = usr;
         //assigning input username to usrn field
-        password = pass;
+        //password = pass;
         //assigning input password to password
     }
-    public bool getTkn (){
+    public bool getTkn (string pass, string usrn){
         URL url = new URL("https://studentsync.moodlecloud.com/login/token.php?");
         //url of moodle webservices
         Map<String,Object> params = new LinkedHashMap<>();
@@ -28,7 +26,7 @@ public class moodleTalker {
         //webservice name for api
         params.put("username", usrn);
         //username key - value pair
-        params.put("password", password);
+        params.put("password", pass);
         //password key value pair
         
 
@@ -58,7 +56,7 @@ public class moodleTalker {
             rawTok = rawTok + (char)c;
             //adding each new character to the string 
         try{
-            tokn = StringUtils.substringBetween(rawTok, "{\"token\":/"",","\"privatetoken\":\"hUE1xvhAZBleNiwX8if3cPZ6Guzul10yHP9a5pa8GhI0gK0jo8Q2CtGqwVYAh0BK\"}");
+            tokn = StringUtils.substringBetween(rawTok, "{\"token\":/"",","\"privatetoken\"");
             return true;
         }
         catch( Exception exception){
