@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 //cid refers to the integer value moodle gives each course in the system. Returned by api calls. EX. example 00 has a CID of 2
 
 public class MoodleAPI {
@@ -22,6 +21,7 @@ public class MoodleAPI {
     private static String password = "";
     private static ArrayList<String> courseList = new ArrayList<String>();
     private static ArrayList<MoodleAssignment> assignmentList = new ArrayList<MoodleAssignment>();
+    private static HashMap<String,String> asmnt = new HashMap<String,String>();
 
     // To set the user's credentials before trying to pull data
     public static void setCredentials() {
@@ -180,6 +180,46 @@ public class MoodleAPI {
         String rawAs = "";
         for (int c = in.read(); c >= 0; c = in.read())
             rawAs = rawAs + (char)c;
+        ArrayList<String> assilist = new ArrayList<String>();
+        Arraylist<String> datelist = new ArrayList<String>();
+        try {
+            // Class names look like "shortname" : "CID"
+            Pattern pattern = Pattern.compile("[.\\n]*\"name\"\\s*:\\s*\"(.*)\"[.\\n]*");
+            Matcher matcher = pattern.matcher(rawAs);
+            if (matcher.find(0)) {
+                asslist.add(matcher.group(1));
+                while (matcher.find(matcher.end())) {
+                    assilist.add(matcher.group(1));
+                }
+            } else {
+                return false;
+            }
+            courseList = newCourseList;
+        } catch (Exception exception) {
+            return false;
+        }
+        try {
+            // Class names look like "shortname" : "CID"
+            Pattern pattern = Pattern.compile("[.\\n]*\"duedate\"\\s*:\\s*\"(.*)\"[.\\n]*");
+            Matcher matcher = pattern.matcher(rawAs);
+            if (matcher.find(0)) {
+                datelist.add(matcher.group(1));
+                while (matcher.find(matcher.end())) {
+                    datelist.add(matcher.group(1));
+                }
+            } else {
+                return false;
+            }
+            courseList = newCourseList;
+        } catch (Exception exception) {
+            return false;
+        }
+        for(int i = 0; i < assilist.size(); i++)
+        {
+            assmnt.put(assilist.get(i),datelist.get(i));
+        }
+
+
 
 
         //TBD: parse xml from assighnments list and return a key value pair of assignment name: datetime
