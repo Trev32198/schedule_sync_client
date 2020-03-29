@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -125,6 +129,8 @@ public class MoodleAPI {
         String rawClass = "";
         for (int c = in.read(); c >= 0; c = in.read())
             rawClass = rawClass + (char)c;
+        // For debug purposes
+        // System.out.println(rawClass);
         // To house new list of courses until parsing is done
         // When parsing is done and successful, the current list of courses
         // will be updated to be this list
@@ -139,6 +145,7 @@ public class MoodleAPI {
                     newCourseList.add(new MoodleCourse(matcher.group(1), matcher.group(2)));
                 }
             } else {
+                System.out.println("Nothing found in data");
                 return false;
             }
             courseList = newCourseList;
@@ -158,7 +165,8 @@ public class MoodleAPI {
         return courseList;
     }
 
-    // Still WIP
+    // Pull list of MoodleAssignments for specified course ID
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static boolean fetchAssignment(String courseID) throws IOException {
 
         URL url = new URL("https://studentsync.moodlecloud.com/webservice/rest/server.php?");
@@ -192,10 +200,32 @@ public class MoodleAPI {
         // For debug purposes
         System.out.println(rawAs);
 
-        //TBD: parse xml from assighnments list and return a key value pair of assignment name: datetime
-
-        // Return false for now in the name of allowing compilation for testing
-        return false;
+        ArrayList<MoodleAssignment> newAssignmentList = new ArrayList<MoodleAssignment>();
+        try {
+            // Extract assignment names, due dates / times
+            // Ensure only assignments for current course are grabbed, just in case
+            Pattern pattern = Pattern.compile("\"course\"\\s*?:\\s*?" + courseID + "\\s*?,.*?\"name\"\\s*?:\\s*?\"(.*?)\".*?\"duedate\"\\s*?:\\s*?([0-9]*)\\s*?,");
+            Matcher matcher = pattern.matcher(rawAs);
+            if (matcher.find(0)) {
+                // Each assignment needs a name, and the epoch time as given by Moodle
+                newAssignmentList.add(new MoodleAssignment(matcher.group(1), Long.parseLong(matcher.group(2))));
+                while (matcher.find(matcher.end())) {
+                    newAssignmentList.add(new MoodleAssignment(matcher.group(1), Long.parseLong(matcher.group(2))));
+                }
+            } else {
+                System.out.println("Nothing found in data");
+                return false;
+            }
+            assignmentList = newAssignmentList;
+        } catch (Exception exception) {
+            return false;
+        }
+        // For debug purposes
+        System.out.println("Assignments: ");
+        for (MoodleAssignment assignment : assignmentList)
+            System.out.println("Assignment name, due date: " + assignment.getName() + ", " + assignment.getDateString() + " at " + assignment.getHour() + ":" + assignment.getMinute());
+        System.out.println();
+        return true;
     }
 
     // Get the list of assignments
