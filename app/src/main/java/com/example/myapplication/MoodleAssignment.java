@@ -1,40 +1,57 @@
 package com.example.myapplication;
 
+
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 public class MoodleAssignment
 {
     private String name;
-    // Unfortunately, java.lang.Date seems to require API 29
-    // We are using an earlier API version for compatibility
-    // and to workaround a couple other problems
-    // So we implement our own rudimentary date format:
-    private int year;
-    private int month;
-    private int day;
-    public MoodleAssignment(String name, int year, int month, int day)
+    private LocalDateTime ldt;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public MoodleAssignment(String name, long epochTime)
     {
         this.name = name;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        // Convert epoch time, UTC, to LocalDateTime
+        this.ldt = LocalDateTime.ofEpochSecond(epochTime, 0, ZoneOffset.of("-04:00"));
     }
-    public String getDateString()
-    {
-        return month + "/" + day + "/" + year;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getDateString() {
+        return getMonth() + "/" + getDay() + "/" + getYear();
     }
-    public int getYear()
-    {
-        return year;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getYear() {
+        return ldt.getYear();
     }
-    public int getMonth()
-    {
-        return month;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getMonth() {
+        return ldt.getMonthValue();
     }
-    public int getDay()
-    {
-        return day;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getDay() {
+        return ldt.getDayOfMonth();
     }
     public String getName()
     {
         return name;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getHour() {
+        return ldt.getHour();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int getMinute() {
+        return ldt.getMinute();
     }
 }
