@@ -17,8 +17,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//cid refers to the integer value moodle gives each course in the system. Returned by api calls. EX. example 00 has a CID of 2
-
 public class MoodleAPI {
     // Declare some attributes
     private static String token = "";
