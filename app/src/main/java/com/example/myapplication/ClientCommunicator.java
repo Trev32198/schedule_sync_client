@@ -168,7 +168,7 @@ public class ClientCommunicator
             Date dt = event.getDateTime();
             String dateString = dt.getYear() + "-" + dt.getMonth() + "-" + dt.getDay();
             String timeString = dt.getHours() + ":" + dt.getMinutes();
-            latestResult = sendToServer("POST ZOOM EVENT", new String[]{username, password, authType, event.getTitle(), dateString, timeString, event.getRoomCode()});
+            latestResult = sendToServer("POST ZOOM EVENT", new String[]{username, password, authType, event.getTitle(), dateString, timeString, event.getRoomCode(), event.getCourse()});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -193,6 +193,17 @@ public class ClientCommunicator
                 enrolledCourseIDs += course.getID() + ",";
             }
             latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, password, authType, enrolledCourseIDs});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean deleteZoomEvent(String code) {
+        try {
+            latestResult = sendToServer("DELETE ZOOM EVENT", new String[]{username, password, authType, code});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
