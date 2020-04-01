@@ -1,20 +1,21 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.net.*;
-import java.io.*;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LogIn extends AppCompatActivity {
+
+    // This activity always gets created at the start of the app
+    // Therefore, we can safely use this activity's context to power
+    // SettingsManager perpetually
+    public static SharedPreferences prefs;
 
     EditText userName;
     EditText password;
@@ -25,7 +26,8 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-
+        // On startup, set up the SharedPreferences object
+        prefs = getSharedPreferences("storage", MODE_PRIVATE);
 
 
         userName = findViewById(R.id.enterUserName);
