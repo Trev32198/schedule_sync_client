@@ -1,9 +1,16 @@
 package com.example.myapplication;// Networking functionality
-import java.io.*;
-import java.net.*;
+
+import android.os.StrictMode;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Date;
 
 // ArrayList
-import java.util.ArrayList;
 
 public class ClientCommunicator
 {
@@ -25,6 +32,9 @@ public class ClientCommunicator
     // Sends command to server and gets its response
     private static String sendToServer(String command, String args[]) throws UnknownHostException, IOException
     {
+        // To be able to do a little networking on main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         String toSend = command;
         for (String arg : args)
         {
@@ -152,6 +162,55 @@ public class ClientCommunicator
         catch (UnknownHostException e) {return false;}
         catch (IOException e) {return false;}
     }
+
+    public static boolean postZoomEvent(ZoomEvent event) {
+        try {
+            Date dt = event.getDateTime();
+            String dateString = dt.getYear() + "-" + dt.getMonth() + "-" + dt.getDay();
+            String timeString = dt.getHours() + ":" + dt.getMinutes();
+            latestResult = sendToServer("POST ZOOM EVENT", new String[]{username, password, authType, event.getTitle(), dateString, timeString, event.getRoomCode(), event.getCourse()});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean getZoomEvents() {
+        try {
+            // First get a list of course IDs
+            // So we can tell the server which course Zoom codes to return
+            if (!MoodleAPI.fetchClassList()) {
+                return false;
+            }
+            ArrayList<MoodleCourse> enrolledCourses = MoodleAPI.getCourseList();
+            String enrolledCourseIDs = "";
+            for (MoodleCourse course : enrolledCourses) {
+                // Course IDs are numbers, send them all on
+                // one line separated by commas
+                // Last comma will be ignored by server
+                enrolledCourseIDs += course.getID() + ",";
+            }
+            latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, password, authType, enrolledCourseIDs});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean deleteZoomEvent(String code) {
+        try {
+            latestResult = sendToServer("DELETE ZOOM EVENT", new String[]{username, password, authType, code});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
     // Allow the user to set credentials and authentication type manually, just in case
     // security question authentication is needed
     public static void setCredentials(String username2, String authToken2,
@@ -161,12 +220,4 @@ public class ClientCommunicator
         authToken = authToken2;
         authType = authType2;
     }
-    // May construct a ClientCommunicator with or without credentials
-    // Credentials can be provided immediately or just before a command requiring authentication
-    /*public ClientCommunicator(String username, String authToken,
-                              String authType)
-    {
-        setCredentials(username, authToken, authType);
-    }*/
-    public ClientCommunicator() {}
 }
