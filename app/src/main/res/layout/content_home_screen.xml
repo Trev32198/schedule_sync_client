@@ -9,17 +9,39 @@
     tools:showIn="@layout/activity_home_screen">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/openSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_settings"
-        tools:layout_editor_absoluteX="173dp"
-        tools:layout_editor_absoluteY="282dp"
+        android:onClick="openSettings"
 
+        android:text="@string/action_settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:onClick="openSettings"/>
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/openSettings">
+
+        <Button
+            android:id="@+id/syncCalender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="syncCalendars"
+            android:text="Sync Calendar" />
+
+        <Button
+            android:id="@+id/createZoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="createZoomScreen"
+            android:text="Create Zoom Meeting" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
