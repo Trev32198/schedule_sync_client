@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -22,7 +23,10 @@ public class Settings extends AppCompatActivity {
     EditText enterNewPassword;
     EditText newSQ;
     EditText newSA;
-
+    EditText moodleName;
+    EditText moodlePassword;
+    EditText googleName;
+    EditText googlePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,13 @@ public class Settings extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void changePassword(View view) {
@@ -48,7 +59,7 @@ public class Settings extends AppCompatActivity {
         } else {
             if (ClientCommunicator.changePW(enterNewPassword.getText().toString())) {
 
-                startActivity(new Intent(Settings.this, HomeScreen.class));
+                //startActivity(new Intent(Settings.this, HomeScreen.class));
                 Settings.this.finish();
             }
         }
@@ -56,13 +67,12 @@ public class Settings extends AppCompatActivity {
     public void changeRecovery(View view) {
 
         newSQ = findViewById(R.id.newRecoveryQuestion);
-            newSA = findViewById(R.id.newRecoveryAnswer);
-
+        newSA = findViewById(R.id.newRecoveryAnswer);
 
         if (ClientCommunicator.changeSQ(newSQ.getText().toString(), newSA.getText().toString())) {
 
 
-                startActivity(new Intent(Settings.this, HomeScreen.class));
+                //startActivity(new Intent(Settings.this, HomeScreen.class));
                 Settings.this.finish();
             }
         }
@@ -71,10 +81,39 @@ public class Settings extends AppCompatActivity {
 
         if (ClientCommunicator.deleteAccount()){
 
-                    startActivity(new Intent(Settings.this, HomeScreen.class));
-                    Settings.this.finish();
-                }
-                }
+            //startActivity(new Intent(Settings.this, HomeScreen.class));
+            Settings.this.finish();
+        }
+    }
 
+    public void storeMoodle(View view){
+        SettingsManager sm = new SettingsManager();
 
+        moodleName = findViewById(R.id.moodleUsername);
+        moodlePassword = findViewById(R.id.moodlePassword);
+        if (MoodleAPI.checkCredentials()) {
+            sm.storeMoodleCredentials(moodleName.getText().toString(), moodlePassword.getText().toString());
+            Settings.this.finish();
+        }
+        else{
+            startActivity(new Intent(Settings.this, Settings.class));
+            Settings.this.finish();
+        }
+    }
+    public void storeGoogle(View view){
+        SettingsManager sm = new SettingsManager();
+
+        googleName = findViewById(R.id.googleUsername);
+        googlePassword = findViewById(R.id.googlePassword);
+
+        if (true){ //TODO
+            //sm.storeGoogleCredentials(googleName.getText().toString(), googlePassword.getText().toString());
+            Settings.this.finish();
+        }
+        else{
+            startActivity(new Intent(Settings.this, Settings.class));
+            Settings.this.finish();
+        }
+
+    }
 }

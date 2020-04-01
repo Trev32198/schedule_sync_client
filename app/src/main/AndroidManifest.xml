@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Settings"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".HomeScreen"
             android:label="@string/title_activity_home_screen"
