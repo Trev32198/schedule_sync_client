@@ -32,6 +32,31 @@ public class MoodleAPI {
         password = SettingsManager.getMoodlePassword();
     }
 
+    // To be able to go from course ID to shortname
+    // Empty if no translation
+    public static String translateIDToName(String courseID) {
+        String result = "";
+        for (MoodleCourse course : courseList) {
+            if (course.getID().equals(courseID)) {
+                result = course.getShortName();
+                break;
+            }
+        }
+        return result;
+    }
+
+    // And vice versa
+    public static String translateNameToID(String name) {
+        String result = "";
+        for (MoodleCourse course : courseList) {
+            if (course.getShortName().equals(name)) {
+                result = course.getID();
+                break;
+            }
+        }
+        return result;
+    }
+
     // Check credentials
     public static boolean checkCredentials() {
         try {
