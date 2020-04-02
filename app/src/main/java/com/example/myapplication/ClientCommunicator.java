@@ -70,6 +70,7 @@ public class ClientCommunicator
     // the SUCCESS, FAILURE, and EOF markers
     public static String getLatestResult()
     {
+        System.out.println(latestResult);
         return latestResult.replace(SUCCESS, "").replace(FAILURE, "");
     }
     // A method for each of the commands the server supports
@@ -172,6 +173,9 @@ public class ClientCommunicator
 
     public static boolean getZoomEvents() {
         try {
+            // Log in
+            MoodleAPI.setCredentials();
+            MoodleAPI.checkCredentials();
             // First get a list of course IDs
             // So we can tell the server which course Zoom codes to return
             if (!MoodleAPI.fetchClassList()) {
@@ -183,7 +187,7 @@ public class ClientCommunicator
                 // Course IDs are numbers, send them all on
                 // one line separated by commas
                 // Last comma will be ignored by server
-                enrolledCourseIDs += course.getID() + ",";
+                enrolledCourseIDs += course.getShortName() + ",";
             }
             latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, authToken, authType, enrolledCourseIDs});
             return latestResult.contains(SUCCESS);
