@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ public class LogIn extends AppCompatActivity {
     // SettingsManager perpetually
     public static SharedPreferences prefs;
 
+    // Need this for Google API to get context / read resources
+    public static Context context;
+
     EditText userName;
     EditText password;
 
@@ -28,7 +32,8 @@ public class LogIn extends AppCompatActivity {
 
         // On startup, set up the SharedPreferences object
         prefs = getSharedPreferences("storage", MODE_PRIVATE);
-
+        // Similarly for context
+        context = getApplicationContext();
 
         userName = findViewById(R.id.enterUserName);
         password = findViewById(R.id.enterPassword);
