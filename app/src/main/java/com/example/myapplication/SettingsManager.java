@@ -1,72 +1,69 @@
 package com.example.myapplication;
 
 // Imports
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 // Must extend Activity to get a context later
 public class SettingsManager extends Activity
 {
-    // For easy interaction with the App's private storage
-    private SharedPreferences prefs;
-    // Initialize by creating a SharedPreferences object referring to the app's data
-    public SettingsManager()
-    {
-        prefs = this.getSharedPreferences("storage", Context.MODE_PRIVATE);
-    }
+    // All methods now static, because only "one" SettingsManager
+    // is enough for every part of the app
+    // We just take the context / shareprefs of the LogIn activity
+    // to do all of the work here
     // Store a specified username and password (the ones for server login)
-    public void storeCredentials(String username, String password)
+    public static void storeCredentials(String username, String password)
     {
-        SharedPreferences.Editor prefsEditor = prefs.edit();
+        SharedPreferences.Editor prefsEditor = LogIn.prefs.edit();
         prefsEditor.putString("username", username);
         prefsEditor.putString("password", password);
         prefsEditor.apply();
     }
     // Get Schedule.Sync username
-    public String getStoredUsername()
+    public static String getStoredUsername()
     {
-        return prefs.getString("username", "");
+        return LogIn.prefs.getString("username", "");
     }
     // Get Schedule.Sync password
-    public String getStoredPassword()
+    public static String getStoredPassword()
     {
-        return prefs.getString("password", "");
+        return LogIn.prefs.getString("password", "");
     }
     // Store specified Moodle username and password
-    public void storeMoodleCredentials(String username, String password)
+    public static void storeMoodleCredentials(String username, String password)
     {
-        SharedPreferences.Editor prefsEditor = prefs.edit();
+        SharedPreferences.Editor prefsEditor = LogIn.prefs.edit();
         prefsEditor.putString("moodle_username", username);
         prefsEditor.putString("moodle_password", password);
         prefsEditor.apply();
     }
     // Get the stored Moodle username
-    public String getMoodleUsername()
+    public static String getMoodleUsername()
     {
-        return prefs.getString("moodle_username", "");
+        return LogIn.prefs.getString("moodle_username", "");
     }
     // Get the stored Moodle password
-    public String getMoodlePassword()
+    public static String getMoodlePassword()
     {
-        return prefs.getString("moodle_password", "");
+        return LogIn.prefs.getString("moodle_password", "");
     }
     // Store a specified Google username and password
-    public void storeGoogleCredentials(String username, String password)
+    public static void storeGoogleCredentials(String username, String password)
     {
-        SharedPreferences.Editor prefsEditor = prefs.edit();
+        SharedPreferences.Editor prefsEditor = LogIn.prefs.edit();
         prefsEditor.putString("google_username", username);
         prefsEditor.putString("google_password", password);
         prefsEditor.apply();
     }
     // Get the stored Google username
-    public String getGoogleUsername()
+    public static String getGoogleUsername()
     {
-        return prefs.getString("google_username", "");
+        return LogIn.prefs.getString("google_username", "");
     }
     // Get the stored Google password
-    public String getGooglePassword()
+    public static String getGooglePassword()
     {
-        return prefs.getString("google_password", "");
+        return LogIn.prefs.getString("google_password", "");
     }
 }

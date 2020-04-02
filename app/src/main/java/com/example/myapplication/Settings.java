@@ -9,13 +9,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceFragmentCompat;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Settings extends AppCompatActivity {
 
@@ -87,12 +80,12 @@ public class Settings extends AppCompatActivity {
     }
 
     public void storeMoodle(View view){
-        SettingsManager sm = new SettingsManager();
-
         moodleName = findViewById(R.id.moodleUsername);
         moodlePassword = findViewById(R.id.moodlePassword);
+
+        SettingsManager.storeMoodleCredentials(moodleName.getText().toString(), moodlePassword.getText().toString());
         if (MoodleAPI.checkCredentials()) {
-            sm.storeMoodleCredentials(moodleName.getText().toString(), moodlePassword.getText().toString());
+
             Settings.this.finish();
         }
         else {
@@ -101,19 +94,10 @@ public class Settings extends AppCompatActivity {
         }
     }
     public void storeGoogle(View view){
-        SettingsManager sm = new SettingsManager();
-
         googleName = findViewById(R.id.googleUsername);
         googlePassword = findViewById(R.id.googlePassword);
 
-        if (true){ //TODO
-            //sm.storeGoogleCredentials(googleName.getText().toString(), googlePassword.getText().toString());
-            Settings.this.finish();
-        }
-        else{
-            startActivity(new Intent(Settings.this, Settings.class));
-            Settings.this.finish();
-        }
-
+        SettingsManager.storeGoogleCredentials(googleName.getText().toString(), googlePassword.getText().toString());
+        Settings.this.finish();
     }
 }
