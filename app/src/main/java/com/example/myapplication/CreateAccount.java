@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,12 +89,11 @@ public class CreateAccount extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Toolbar toolbar = findViewById(R.id.toolbar);
-    //setSupportActionBar(toolbar);
 
-
-
-
-
-
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

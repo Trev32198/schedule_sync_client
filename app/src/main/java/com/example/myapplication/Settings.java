@@ -88,7 +88,7 @@ public class Settings extends AppCompatActivity {
 
             Settings.this.finish();
         }
-        else{
+        else {
             startActivity(new Intent(Settings.this, Settings.class));
             Settings.this.finish();
         }
