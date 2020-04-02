@@ -19,6 +19,8 @@ import org.w3c.dom.Text;
 
 public class ViewZoomEventsFragment extends Fragment {
 
+    TextView txt;
+
     private ViewZoomEventsViewModel mViewModel;
 
     public static ViewZoomEventsFragment newInstance() {

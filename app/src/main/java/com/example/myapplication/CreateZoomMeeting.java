@@ -50,7 +50,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
         zoomCode = findViewById(R.id.enterZoom);
 
         zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.toString()),
-                Integer.parseInt(month.toString()), Integer.parseInt(day.toString()),
+                Integer.parseInt(month.toString()), Integer.parseInt(String.valueOf(day)),
                 Integer.parseInt(hour.toString()), Integer.parseInt(minute.toString()),
                 zoomCode.toString(), classChoice.toString());
         if (ClientCommunicator.postZoomEvent(zoomEvent)) {
