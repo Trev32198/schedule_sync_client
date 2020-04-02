@@ -95,7 +95,7 @@ public class Settings extends AppCompatActivity {
             sm.storeMoodleCredentials(moodleName.getText().toString(), moodlePassword.getText().toString());
             Settings.this.finish();
         }
-        else{
+        else {
             startActivity(new Intent(Settings.this, Settings.class));
             Settings.this.finish();
         }
