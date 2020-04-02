@@ -11,8 +11,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+
+import org.w3c.dom.Text;
 
 public class ViewZoomEventsFragment extends Fragment {
 
@@ -27,6 +30,7 @@ public class ViewZoomEventsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.view_zoom_events_fragment, container, false);
+
     }
 
     @Override
