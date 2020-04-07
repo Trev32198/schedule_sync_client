@@ -23,7 +23,7 @@ public class trReply{
     }
     public boolean editBody(String newTxt){
         try{
-            body = editBody;
+            body = newTxt;
             
         }
         catch(exception e){
