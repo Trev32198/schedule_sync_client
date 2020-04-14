@@ -9,8 +9,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class CreateZoomMeeting extends AppCompatActivity {
     EditText day;
@@ -30,11 +30,41 @@ public class CreateZoomMeeting extends AppCompatActivity {
         setContentView(R.layout.activity_create_zoom_meeting);
         addItemsOnSpinner2();
     }
+
+    private static int convertMonthToInt(String monthName) {
+        ArrayList<String> months = new ArrayList<String>();
+        months.add("January");
+        months.add("February");
+        months.add("March");
+        months.add("April");
+        months.add("May");
+        months.add("June");
+        months.add("July");
+        months.add("August");
+        months.add("September");
+        months.add("October");
+        months.add("November");
+        months.add("December");
+        return months.indexOf(monthName) + 1;
+    }
+
     public void addItemsOnSpinner2() {
         Spinner classSpinner = findViewById(R.id.classChoose);
+        // Get course list from Moodle API
+        MoodleAPI.setCredentials();
+        MoodleAPI.checkCredentials();
+        try {
+            MoodleAPI.fetchClassList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> courseNames = new ArrayList<>();
+        for (MoodleCourse course : MoodleAPI.getCourseList()) {
+            courseNames.add(course.getShortName());
+        }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
-                Collections.singletonList(Arrays.toString(MoodleAPI.getCourseList().toArray())));  //is this going to work?  i have no idea
+                courseNames);  //is this going to work?  i have no idea
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         classSpinner.setAdapter(dataAdapter);
     }
@@ -49,10 +79,12 @@ public class CreateZoomMeeting extends AppCompatActivity {
         classChoice = findViewById(R.id.classChoose);
         zoomCode = findViewById(R.id.enterZoom);
 
-        zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.toString()),
-                Integer.parseInt(month.toString()), Integer.parseInt(String.valueOf(day)),
-                Integer.parseInt(hour.toString()), Integer.parseInt(minute.toString()),
-                zoomCode.toString(), classChoice.toString());
+        zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.getSelectedItem().toString()),
+                convertMonthToInt(month.getSelectedItem().toString()), Integer.parseInt(day.getText().toString()),
+                Integer.parseInt(hour.getSelectedItem().toString()), Integer.parseInt(minute.getSelectedItem().toString()),
+                zoomCode.getText().toString(), classChoice.getSelectedItem().toString());
+        System.out.println("Day is set to: " + day.getText().toString());
+
         if (ClientCommunicator.postZoomEvent(zoomEvent)) {
             CreateZoomMeeting.this.finish();
         }

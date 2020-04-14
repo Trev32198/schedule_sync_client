@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Build;
+import android.os.StrictMode;
 
 import androidx.annotation.RequiresApi;
 
@@ -27,9 +28,33 @@ public class MoodleAPI {
 
     // To set the user's credentials before trying to pull data
     public static void setCredentials() {
-        SettingsManager mgr = new SettingsManager();
-        username = mgr.getMoodleUsername();
-        password = mgr.getMoodlePassword();
+        username = SettingsManager.getMoodleUsername();
+        password = SettingsManager.getMoodlePassword();
+    }
+
+    // To be able to go from course ID to shortname
+    // Empty if no translation
+    public static String translateIDToName(String courseID) {
+        String result = "";
+        for (MoodleCourse course : courseList) {
+            if (course.getID().equals(courseID)) {
+                result = course.getShortName();
+                break;
+            }
+        }
+        return result;
+    }
+
+    // And vice versa
+    public static String translateNameToID(String name) {
+        String result = "";
+        for (MoodleCourse course : courseList) {
+            if (course.getShortName().equals(name)) {
+                result = course.getID();
+                break;
+            }
+        }
+        return result;
     }
 
     // Check credentials
@@ -46,6 +71,9 @@ public class MoodleAPI {
     // determined in this class's other methods (TODO)
     // Credentials must be set first
     private static boolean getToken() throws IOException {
+        // To be able to do a little networking on main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         // The URL to connect to
         URL url = new URL("https://studentsync.moodlecloud.com/login/token.php?");
         // For the storage of POST arguments
@@ -101,6 +129,9 @@ public class MoodleAPI {
     }
 
     public static boolean fetchClassList() throws IOException {
+        // To be able to do a little networking on main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         URL url = new URL("https://studentsync.moodlecloud.com/webservice/rest/server.php");
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("wstoken", token);
@@ -166,7 +197,9 @@ public class MoodleAPI {
     // Pull list of MoodleAssignments for specified course ID
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static boolean fetchAssignment(String courseID) throws IOException {
-
+        // To be able to do a little networking on main thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         URL url = new URL("https://studentsync.moodlecloud.com/webservice/rest/server.php?");
         Map<String,Object> params = new LinkedHashMap<>();
 

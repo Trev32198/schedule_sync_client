@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Date;
 
 // ArrayList
 
@@ -20,14 +19,10 @@ public class ClientCommunicator
     private static final int PORT = 24602;
     private static final String SERVER = "10.0.2.2";
     private static String username = "";
-    private static String password = "";
     private static String authType = "pw";
     private static String sq = "";
     private static String sqa = "";
-    private static String authToken = password;
-    private static Socket connectionSocket = null;
-    private static DataOutputStream dataOutStream = null;
-    private static DataInputStream dataInStream = null;
+    private static String authToken = "";
     private static String latestResult = "";
     // Sends command to server and gets its response
     private static String sendToServer(String command, String args[]) throws UnknownHostException, IOException
@@ -43,9 +38,9 @@ public class ClientCommunicator
         // EOF marker
         toSend += (char)(0x04);
         System.out.println("About to connect");
-        connectionSocket = new Socket(SERVER, PORT);
-        dataOutStream = new DataOutputStream(connectionSocket.getOutputStream());
-        dataInStream = new DataInputStream(connectionSocket.getInputStream());
+        Socket connectionSocket = new Socket(SERVER, PORT);
+        DataOutputStream dataOutStream = new DataOutputStream(connectionSocket.getOutputStream());
+        DataInputStream dataInStream = new DataInputStream(connectionSocket.getInputStream());
         dataOutStream.write(toSend.getBytes("UTF-8"));
         ArrayList<Byte> byteString = new ArrayList<Byte>();
         while (true)
@@ -86,7 +81,7 @@ public class ClientCommunicator
     {
         try
         {
-            latestResult = sendToServer("CREATE ACCOUNT", new String[] {username, password,
+            latestResult = sendToServer("CREATE ACCOUNT", new String[]{username, password2,
                                                   sq, sqa});
             System.out.println(latestResult);
             if (latestResult.contains(SUCCESS))
@@ -95,11 +90,10 @@ public class ClientCommunicator
                 // Update the class's credential storage so that after the user
                 // is made the account can be immediately used in authentication
                 username = username2;
-                password = password2;
                 sq = sq2;
                 sqa = sqa2;
                 authType = "pw";
-                authToken = password;
+                authToken = password2;
             }
             return latestResult.contains(SUCCESS);
         }
@@ -110,12 +104,12 @@ public class ClientCommunicator
     {
         try
         {
-            latestResult = sendToServer("CHANGE PASSWORD", new String[] {username, password, authType, newPassword});
+            latestResult = sendToServer("CHANGE PASSWORD", new String[]{username, authToken, authType, newPassword});
             if (latestResult.contains(SUCCESS))
             {
                 // If we make it here, we changed the password successfully,
                 // so we should update the locally stored password
-                password = newPassword;
+                authToken = newPassword;
             }
             return latestResult.contains(SUCCESS);
         }
@@ -126,7 +120,7 @@ public class ClientCommunicator
     {
         try
         {
-            latestResult = sendToServer("CHANGE SQ", new String[] {username, password, authType, newSQ, newSQA});
+            latestResult = sendToServer("CHANGE SQ", new String[]{username, authToken, authType, newSQ, newSQA});
             if (latestResult.contains(SUCCESS))
             {
                 // If we make it here, we changed the sq and sqa successfully
@@ -143,7 +137,7 @@ public class ClientCommunicator
     {
         try
         {
-            latestResult = sendToServer("DELETE ACCOUNT", new String[] {username, password, authType});
+            latestResult = sendToServer("DELETE ACCOUNT", new String[]{username, authToken, authType});
             // If we make it here, the account has been deleted
             // We could reset the credentials in this instance, but trying to log in with empty
             // credentials will work no better than credentials that are no longer valid
@@ -156,7 +150,7 @@ public class ClientCommunicator
     {
         try
         {
-            latestResult = sendToServer("SEARCH USER", new String[] {username, password, authType, query});
+            latestResult = sendToServer("SEARCH USER", new String[]{username, authToken, authType, query});
             return latestResult.contains(SUCCESS);
         }
         catch (UnknownHostException e) {return false;}
@@ -165,10 +159,9 @@ public class ClientCommunicator
 
     public static boolean postZoomEvent(ZoomEvent event) {
         try {
-            Date dt = event.getDateTime();
-            String dateString = dt.getYear() + "-" + dt.getMonth() + "-" + dt.getDay();
-            String timeString = dt.getHours() + ":" + dt.getMinutes();
-            latestResult = sendToServer("POST ZOOM EVENT", new String[]{username, password, authType, event.getTitle(), dateString, timeString, event.getRoomCode(), event.getCourse()});
+            String dateString = event.getYear() + "-" + event.getMonth() + "-" + event.getDay();
+            String timeString = event.getHour() + ":" + event.getMinute();
+            latestResult = sendToServer("POST ZOOM EVENT", new String[]{username, authToken, authType, event.getTitle(), dateString, timeString, event.getRoomCode(), event.getCourse()});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -192,7 +185,7 @@ public class ClientCommunicator
                 // Last comma will be ignored by server
                 enrolledCourseIDs += course.getID() + ",";
             }
-            latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, password, authType, enrolledCourseIDs});
+            latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, authToken, authType, enrolledCourseIDs});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -203,7 +196,7 @@ public class ClientCommunicator
 
     public static boolean deleteZoomEvent(String code) {
         try {
-            latestResult = sendToServer("DELETE ZOOM EVENT", new String[]{username, password, authType, code});
+            latestResult = sendToServer("DELETE ZOOM EVENT", new String[]{username, authToken, authType, code});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;

@@ -9,7 +9,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
@@ -17,10 +16,10 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -28,17 +27,29 @@ import java.util.List;
 public class GoogleAPI {
     private static final String CAL_APP_NAME = "Simple GCal API For Java";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final String PATH_TO_TOKENS = "tokens";
     // get the scope of the application to obtain the required access permission
     // if this scope is changed at some point, the above tokens folder should be deleted to refresh tokens
     private static final List<String> CAL_APP_SCOPES = Collections.singletonList(CalendarScopes.CALENDAR);
     // the path where generated oauth credentials will be stored
-    private static final String PATH_TO_CREDENTIALS = "/credentials.json";
+    private static final String PATH_TO_CREDENTIALS = "credentials.json";
 
-    private static Events events;
     private static Calendar calendarService;
     private static boolean eventExists = false;
 
+    public static boolean prepareAPI() {
+        try {
+            // Build a new authorized API client service.
+            final NetHttpTransport HTTP_TRANSPORT = new com.google.api.client.http.javanet.NetHttpTransport();
+            // final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            calendarService = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(CAL_APP_NAME)
+                    .build();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
     /**
      * Creates an authorized Credential object.
      *
@@ -48,10 +59,8 @@ public class GoogleAPI {
      */
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = GoogleAPI.class.getResourceAsStream(PATH_TO_CREDENTIALS);
-        if (in == null) {
-            throw new FileNotFoundException("Credential File '" + PATH_TO_CREDENTIALS + "' was not found");
-        }
+        InputStream in = LogIn.context.getResources().openRawResource(R.raw.credentials);
+        //InputStream in = GoogleAPI.class.getResourceAsStream(PATH_TO_CREDENTIALS);
 
         // load the oauth2 credentials
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -61,10 +70,7 @@ public class GoogleAPI {
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, CAL_APP_SCOPES)
                 // below code line enables to store the access token locally on the machine
                 // to enable user access the resource with just one time permission access
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(PATH_TO_TOKENS)))
-                // if every time permission should be checked or new login to be done, delete the above line of code
                 .setAccessType("offline")
-                .setApprovalPrompt("force")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
@@ -78,7 +84,11 @@ public class GoogleAPI {
     private static boolean eventExists(String summary, String dateString, String timeString) throws IOException {
         DateTime now = new DateTime(System.currentTimeMillis());
         // get the events from the calendar service
-        events = calendarService.events().list("primary")
+        // these many only if there are more
+        // starting now
+        // order by their start time
+        // each event individually
+        Events events = calendarService.events().list("primary")
                 .setMaxResults(1024)    // these many only if there are more
                 .setTimeMin(now)                // starting now
                 .setOrderBy("startTime")        // order by their start time
@@ -111,9 +121,10 @@ public class GoogleAPI {
      */
     // dateString is date as YYYY-MM-DD
     // timeString is time as HH:MM
-    public static void createNewEvent(String summary, String dateString, String timeString) throws IOException {
+    public static void createNewEvent(String summary, String dateString, String timeString) throws IOException, GeneralSecurityException {
         // Check if event exists first
         if (eventExists(summary, dateString, timeString)) {
+            System.out.println("\nThe event already exists...Not Required to add again.");
             return;
         }
         // create a new event instance
@@ -140,24 +151,4 @@ public class GoogleAPI {
         event = calendarService.events().insert(calendarId, event).setSendNotifications(true).execute();
         System.out.printf("\nEvent created: %s\n", event.getHtmlLink());
     }
-/*
-    public static void main(String... args) throws IOException, GeneralSecurityException {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        calendarService = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(CAL_APP_NAME)
-                .build();
-
-        // List the next 10 events from the primary calendar.
-        getNextEvents(10);
-
-        System.out.printf("\nNew event '%s' starting '%s' is about to be created\n", NEW_EVENT_SUMMARY, NEW_EVENT_START_TIME);
-        if (eventExists) {
-            System.out.println("\nThe event already exists...Not Required to add again.");
-            return;
-        }
-
-        // Event does not exist, create the new event
-        createNewEvent();
-    }*/
 }

@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LogIn extends AppCompatActivity {
 
+    // This activity always gets created at the start of the app
+    // Therefore, we can safely use this activity's context to power
+    // SettingsManager perpetually
+    public static SharedPreferences prefs;
+
+    // Need this for Google API to get context / read resources
+    public static Context context;
+
     EditText userName;
     EditText password;
 
@@ -20,8 +30,10 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-
-
+        // On startup, set up the SharedPreferences object
+        prefs = getSharedPreferences("storage", MODE_PRIVATE);
+        // Similarly for context
+        context = getApplicationContext();
 
         userName = findViewById(R.id.enterUserName);
         password = findViewById(R.id.enterPassword);
