@@ -35,6 +35,6 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void viewZoomMeetings(View view){
-        startActivity(new Intent(HomeScreen.this, tempZoom.class ));
+        startActivity(new Intent(HomeScreen.this, ViewZoomEvents.class ));
     }
 }

@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 // Imports
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 // Must extend Activity to get a context later
-public class SettingsManager extends Activity
+public class SettingsManager extends AppCompatActivity
 {
     // For easy interaction with the App's private storage
     private SharedPreferences prefs;
