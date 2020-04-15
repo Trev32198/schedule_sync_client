@@ -54,7 +54,7 @@ public class ServerResponseParser {
             int hour = Integer.parseInt(timeData[0]);
             int minute = Integer.parseInt(timeData[1]);
             CustomDateTime dt = new CustomDateTime(year, month, day, hour, minute);
-            replies.add(new ThreadReply(values[0], values[1], dt));
+            replies.add(new ThreadReply(values[1], values[0], dt));
         }
         return replies;
     }
