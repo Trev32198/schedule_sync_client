@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ViewZoomEvents extends AppCompatActivity {
+public class ViewZoomList extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -21,7 +21,7 @@ public class ViewZoomEvents extends AppCompatActivity {
         ArrayList<ZoomEvent> zoomEvents = new ArrayList<>();
         zoomEvents.add(new ZoomEvent("what", 1, 1, 1, 1, 1, "nono", "csc111"));
         zoomEvents.add(new ZoomEvent("who", 1, 1, 1, 1, 1, "yesyes", "csc111"));
-        zoomEvents.add(new ZoomEvent("lol", 1, 1, 1, 1, 1, "haha", "csc111"));
+        zoomEvents.add(new ZoomEvent("where", 1, 1, 1, 1, 1, "haha", "csc111"));
 
         mRecyclerView = findViewById(R.id.recycler_view);
         //mRecyclerView.setHasFixedSize(true);

@@ -46,7 +46,6 @@ public class LogIn extends AppCompatActivity {
                 LogIn.this.finish();
             }
         };
-                createAccountButton.setOnClickListener(accountListener);
 
 
 

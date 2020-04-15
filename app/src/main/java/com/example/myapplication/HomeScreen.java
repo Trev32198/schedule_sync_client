@@ -35,6 +35,10 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void viewZoomMeetings(View view){
-        startActivity(new Intent(HomeScreen.this, ViewZoomEvents.class ));
+        startActivity(new Intent(HomeScreen.this, ViewZoomList.class ));
+    }
+
+    public void viewForum(View view){
+        startActivity(new Intent(HomeScreen.this, ViewForumList.class ));
     }
 }

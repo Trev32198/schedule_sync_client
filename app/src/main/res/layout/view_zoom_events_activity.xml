@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
-    tools:context=".ViewZoomEvents" >
+    tools:context=".ViewZoomList" >
 
     <RelativeLayout
         android:layout_width="397dp"

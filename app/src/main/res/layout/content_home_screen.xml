@@ -37,18 +37,25 @@
             android:text="Sync Calendar" />
 
         <Button
-            android:id="@+id/createZoom"
+            android:id="@+id/createZoomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="createZoomScreen"
             android:text="Create Zoom Meeting" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/viewZoomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="viewZoomMeetings"
             android:text="View Zoom Meetings" />
+
+        <Button
+            android:id="@+id/forumButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewForum"
+            android:text="View Forums" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
