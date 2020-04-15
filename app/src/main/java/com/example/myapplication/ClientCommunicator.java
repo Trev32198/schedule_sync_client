@@ -211,7 +211,7 @@ public class ClientCommunicator
 
     public static boolean postNewThread(DiscussionThread thread) {
         try {
-            latestResult = sendToServer("POST THREAD", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse(), thread.getCreatorUsername()});
+            latestResult = sendToServer("POST THREAD", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -256,7 +256,7 @@ public class ClientCommunicator
             // Need to tell server info that identifies the thread in which we want to reply
             // We also need to specify reply data
             latestResult = sendToServer("POST REPLY", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse(),
-                    thread.getCreatorUsername(), replyText});
+                    replyText});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -267,7 +267,7 @@ public class ClientCommunicator
 
     public static boolean getReplies(DiscussionThread thread) {
         try {
-            latestResult = sendToServer("GET REPLIES", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse(), thread.getCreatorUsername()});
+            latestResult = sendToServer("GET REPLIES", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
