@@ -70,6 +70,7 @@ public class ClientCommunicator
     // the SUCCESS, FAILURE, and EOF markers
     public static String getLatestResult()
     {
+        System.out.println(latestResult);
         return latestResult.replace(SUCCESS, "").replace(FAILURE, "");
     }
     // A method for each of the commands the server supports
@@ -172,6 +173,9 @@ public class ClientCommunicator
 
     public static boolean getZoomEvents() {
         try {
+            // Log in
+            MoodleAPI.setCredentials();
+            MoodleAPI.checkCredentials();
             // First get a list of course IDs
             // So we can tell the server which course Zoom codes to return
             if (!MoodleAPI.fetchClassList()) {
@@ -183,7 +187,7 @@ public class ClientCommunicator
                 // Course IDs are numbers, send them all on
                 // one line separated by commas
                 // Last comma will be ignored by server
-                enrolledCourseIDs += course.getID() + ",";
+                enrolledCourseIDs += course.getShortName() + ",";
             }
             latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, authToken, authType, enrolledCourseIDs});
             return latestResult.contains(SUCCESS);
@@ -204,6 +208,78 @@ public class ClientCommunicator
             return false;
         }
     }
+
+    public static boolean postNewThread(DiscussionThread thread) {
+        try {
+            latestResult = sendToServer("POST THREAD", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean getThreads() {
+        try {
+            // Log in
+            MoodleAPI.setCredentials();
+            MoodleAPI.checkCredentials();
+            // First get a list of course IDs
+            // So we can tell the server which course Zoom codes to return
+            if (!MoodleAPI.fetchClassList()) {
+                return false;
+            }
+            ArrayList<MoodleCourse> enrolledCourses = MoodleAPI.getCourseList();
+            String enrolledCourseIDs = "";
+            for (MoodleCourse course : enrolledCourses) {
+                // Course IDs are numbers, send them all on
+                // one line separated by commas
+                // Last comma will be ignored by server
+                enrolledCourseIDs += course.getShortName() + ",";
+            }
+            latestResult = sendToServer("GET THREADS", new String[]{username, authToken, authType, enrolledCourseIDs});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    // We do not specify a reply object here because it would be redundant
+    // ClientCommunicator sends the username for authentication and the server
+    // knows the right time to associate with the post
+    // So, we only send the reply text
+    public static boolean postReply(DiscussionThread thread, String replyText) {
+        try {
+            // Need to tell server info that identifies the thread in which we want to reply
+            // We also need to specify reply data
+            latestResult = sendToServer("POST REPLY", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse(),
+                    replyText});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean getReplies(DiscussionThread thread) {
+        try {
+            latestResult = sendToServer("GET REPLIES", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
     // Allow the user to set credentials and authentication type manually, just in case
     // security question authentication is needed
     public static void setCredentials(String username2, String authToken2,

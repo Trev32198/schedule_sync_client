@@ -1,5 +1,13 @@
 package com.example.myapplication;
 
+// THIS CODE IS *NOT* OURS
+// While we attempted to adapt it to fit our use cases, it turns out that this
+// code actually belongs to Google (except the small modifications)
+// As a result, we must notify you that despite the fact that this repository
+// is currently tagged with the GPLv3 license, this file is not ours and we cannot simply
+// license it under the GPL
+// The usage of this code is actually governed by the terms of the Apache software license
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
