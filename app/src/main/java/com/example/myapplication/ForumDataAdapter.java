@@ -22,7 +22,7 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
 
         public ForumViewHolder(@NonNull View itemView) {
             super(itemView);
-            forumCourse = itemView.findViewById(R.id.forumListTitle);
+            forumTitle = itemView.findViewById(R.id.forumListTitle);
             forumCourse = itemView.findViewById((R.id.forumListCourse));
 
         }
