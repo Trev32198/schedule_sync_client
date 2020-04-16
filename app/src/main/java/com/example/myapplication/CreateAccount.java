@@ -7,17 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import androidx.appcompat.widget.Toolbar;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -32,9 +24,9 @@ public class CreateAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        enterUserName = findViewById(R.id.enterUserName);
+        enterUserName = findViewById(R.id.enterForumTitle);
         enterPassword = findViewById(R.id.enterPassword);
-        enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
+        enterPasswordAgain = findViewById(R.id.enterForumName);
         enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
         enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
 
@@ -47,9 +39,9 @@ public class CreateAccount extends AppCompatActivity {
 
     public void createAccountFunction(View view) {
 
-        enterUserName = findViewById(R.id.enterUserName);
+        enterUserName = findViewById(R.id.enterForumTitle);
         enterPassword = findViewById(R.id.enterPassword);
-        enterPasswordAgain = findViewById(R.id.enterPasswordAgain);
+        enterPasswordAgain = findViewById(R.id.enterForumName);
         enterSecurityQuestion = findViewById(R.id.enterSecurityQuestion);
         enterSecurityAnswer = findViewById(R.id.enterSecurityAnswer);
 
