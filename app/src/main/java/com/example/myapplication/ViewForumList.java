@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,12 +31,13 @@ public class ViewForumList extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        final ArrayList<DiscussionThread> finalForumEvents = forumEvents;
         mAdapter.setOnItemClickListener(new ForumDataAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 
                 Intent intent2 = new Intent(ViewForumList.this, ExpandForum.class);
-                intent2.putExtra("ForumThread", forumEvents.get(position));
+                intent2.putExtra("ForumThread", finalForumEvents.get(position));
                 startActivity(intent2);
             }
         });

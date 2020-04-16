@@ -67,7 +67,7 @@ public class ReplyDataAdapter extends RecyclerView.Adapter<ReplyDataAdapter.Repl
     public void onBindViewHolder(@NonNull ReplyViewHolder holder, int position) {
         ThreadReply currentItem = mReplyList.get(position);
         holder.ReplyBody.setText(currentItem.getBody());
-        holder.ReplyDate.setText((CharSequence) currentItem.getDatetime());
+        holder.ReplyDate.setText(currentItem.getDatetime().toString());
         holder.ReplyCreator.setText(currentItem.getUsername());
     }
 

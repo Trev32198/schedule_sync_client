@@ -1,13 +1,15 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class ExpandForum extends AppCompatActivity {
+
+    DiscussionThread forumEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +17,7 @@ public class ExpandForum extends AppCompatActivity {
         setContentView(R.layout.activity_expand_forum);
 
         Intent intent = getIntent();
-        DiscussionThread forumEvent = intent.getParcelableExtra("ForumThread");
+        forumEvent = intent.getParcelableExtra("ForumThread");
 
         TextView forumTitle;
         TextView forumCreator;
@@ -33,6 +35,8 @@ public class ExpandForum extends AppCompatActivity {
     }
 
     public void viewComments(View view){
-        startActivity(new Intent(ExpandForum.this, ReplyList.class ));
+        Intent intent2 = new Intent(ExpandForum.this, ReplyList.class);
+        intent2.putExtra("ForumThread", forumEvent);
+        startActivity(intent2);
     }
 }

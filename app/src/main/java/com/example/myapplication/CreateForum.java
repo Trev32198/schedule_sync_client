@@ -52,7 +52,7 @@ public class CreateForum extends AppCompatActivity {
 
     public void createForum(View view){
 
-        DiscussionThread discussionThread = new DiscussionThread(forumTitle.toString(),
+        DiscussionThread discussionThread = new DiscussionThread(forumTitle.getText().toString(),
                 classChoice.getSelectedItem().toString());
 
         if (ClientCommunicator.postNewThread(discussionThread)) {
