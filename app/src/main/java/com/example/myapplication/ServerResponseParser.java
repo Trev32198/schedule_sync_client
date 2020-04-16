@@ -30,10 +30,17 @@ public class ServerResponseParser {
 
     public static ArrayList<DiscussionThread> parseDiscussionThreads() {
         String serverResponse = ClientCommunicator.getLatestResult();
+        System.out.println("Response to parse:");
+        System.out.println(serverResponse);
         String[] threadLines = serverResponse.split("\n");
+        System.out.println("Lines of the CSV response:");
+        for (String threadLine : threadLines) {
+            System.out.println(threadLine);
+        }
         ArrayList<DiscussionThread> threads = new ArrayList<>();
         for (String threadLine : threadLines) {
             String[] values = threadLine.split(",");
+            System.out.println("Length of split values list for thread parsing is " + values.length);
             threads.add(new DiscussionThread(values[0], values[1], values[2]));
         }
         return threads;

@@ -31,6 +31,7 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
 
         public ForumViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
+
             ForumTitle = itemView.findViewById(R.id.forumListTitle);
             ForumCourse = itemView.findViewById((R.id.forumListCourse));
 
@@ -45,6 +46,7 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
                     }
                 }
             });
+
         }
     }
 
