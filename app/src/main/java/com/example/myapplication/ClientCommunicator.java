@@ -27,6 +27,13 @@ public class ClientCommunicator
     // Sends command to server and gets its response
     private static String sendToServer(String command, String args[]) throws UnknownHostException, IOException
     {
+        // For debug purposes
+        System.out.println("Sending server the following args:");
+        System.out.println(command);
+        for (String arg : args) {
+            System.out.println(arg);
+        }
+        System.out.println("---END COMMAND---");
         // To be able to do a little networking on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -82,8 +89,8 @@ public class ClientCommunicator
     {
         try
         {
-            latestResult = sendToServer("CREATE ACCOUNT", new String[]{username, password2,
-                                                  sq, sqa});
+            latestResult = sendToServer("CREATE ACCOUNT", new String[]{username2, password2,
+                    sq2, sqa2});
             System.out.println(latestResult);
             if (latestResult.contains(SUCCESS))
             {
