@@ -17,6 +17,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
+            android:name=".ReplyList"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
             android:name=".ExpandForum"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 

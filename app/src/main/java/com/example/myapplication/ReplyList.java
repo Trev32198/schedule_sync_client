@@ -18,17 +18,23 @@ public class ReplyList extends AppCompatActivity {
     private ReplyDataAdapter mAdapter;
     private  RecyclerView.LayoutManager mLayoutManager;
     TextView reply;
+    TextView replyCreator;
+    TextView replyDate;
+    TextView replyBody;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycler_view);
+        setContentView(R.layout.reply_recycler_view);
 
         final ArrayList<ThreadReply> threadReplies = new ArrayList<>();
         //ClientCommunicator.getReplies();
         //threadReplies = ServerResponseParser.parseReplies();
-        reply = findViewById(R.id.replyBody);
+
 
         mRecyclerView = findViewById(R.id.recycler_view);
+        reply = findViewById(R.id.replyToSendBody);
+
+
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new ReplyDataAdapter(threadReplies);
 
