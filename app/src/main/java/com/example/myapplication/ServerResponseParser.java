@@ -9,6 +9,10 @@ public class ServerResponseParser {
         // First get the server's latest response
         // Assumes the server has already been contacted
         String serverResponse = ClientCommunicator.getLatestResult();
+        if (serverResponse.equals("")) {
+            System.out.println("Server response empty, no events to parse.");
+            return new ArrayList<>();
+        }
         // Split into individual lines
         String[] eventLines = serverResponse.split("\n");
         // Make an empty list
@@ -32,6 +36,10 @@ public class ServerResponseParser {
         String serverResponse = ClientCommunicator.getLatestResult();
         System.out.println("Response to parse:");
         System.out.println(serverResponse);
+        if (serverResponse.equals("")) {
+            System.out.println("Server response empty, no threads to parse.");
+            return new ArrayList<>();
+        }
         String[] threadLines = serverResponse.split("\n");
         System.out.println("Lines of the CSV response:");
         for (String threadLine : threadLines) {
@@ -48,6 +56,10 @@ public class ServerResponseParser {
 
     public static ArrayList<ThreadReply> parseReplies() {
         String serverResponse = ClientCommunicator.getLatestResult();
+        if (serverResponse.equals("")) {
+            System.out.println("Server response empty, no replies to parse.");
+            return new ArrayList<>();
+        }
         String[] replyLines = serverResponse.split("\n");
         ArrayList<ThreadReply> replies = new ArrayList<>();
         for (String replyLine : replyLines) {

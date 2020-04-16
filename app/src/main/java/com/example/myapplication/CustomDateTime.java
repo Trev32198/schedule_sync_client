@@ -55,4 +55,8 @@ public class CustomDateTime {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    public String toString() {
+        return year + "-" + month + "-" + day + " " + hour + ":" + minute;
+    }
 }

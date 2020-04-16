@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,14 +20,19 @@ public class ReplyList extends AppCompatActivity {
     TextView replyCreator;
     TextView replyDate;
     TextView replyBody;
+    DiscussionThread forumEvent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reply_recycler_view);
 
-        final ArrayList<ThreadReply> threadReplies = new ArrayList<>();
-        //ClientCommunicator.getReplies();
-        //threadReplies = ServerResponseParser.parseReplies();
+        Intent intent = getIntent();
+        forumEvent = intent.getParcelableExtra("ForumThread");
+        assert forumEvent != null;
+
+        ArrayList<ThreadReply> threadReplies;
+        ClientCommunicator.getReplies(forumEvent);
+        threadReplies = ServerResponseParser.parseReplies();
 
 
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -43,10 +47,6 @@ public class ReplyList extends AppCompatActivity {
     }
 
     public void sendReply(View view){
-        Intent intent = getIntent();
-        DiscussionThread forumEvent = intent.getParcelableExtra("Forum");
-        assert forumEvent != null;
-        ClientCommunicator.postReply(forumEvent, reply.toString());
-
+        ClientCommunicator.postReply(forumEvent, reply.getText().toString());
     }
 }
