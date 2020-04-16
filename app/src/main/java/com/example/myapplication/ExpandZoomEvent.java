@@ -30,11 +30,11 @@ public class ExpandZoomEvent extends AppCompatActivity {
         assert zoomEvent != null;
         zoomTitle.setText(zoomEvent.getTitle());
         zoomCourse.setText(zoomEvent.getCourse());
-        zoomMonth.setText(zoomEvent.getMonth());
-        zoomDay.setText(zoomEvent.getDay());
-        zoomYear.setText(zoomEvent.getYear());
-        zoomHour.setText(zoomEvent.getHour());
-        zoomMinute.setText(zoomEvent.getMinute());
+        zoomMonth.setText(String.valueOf(zoomEvent.getMonth()));
+        zoomDay.setText(String.valueOf(zoomEvent.getDay()));
+        zoomYear.setText(String.valueOf(zoomEvent.getYear()));
+        zoomHour.setText(String.valueOf(zoomEvent.getHour()));
+        zoomMinute.setText(String.valueOf(zoomEvent.getMinute()));
         zoomCode.setText(zoomEvent.getRoomCode());
 
     }

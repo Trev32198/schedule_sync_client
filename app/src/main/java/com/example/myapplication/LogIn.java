@@ -37,17 +37,6 @@ public class LogIn extends AppCompatActivity {
 
         userName = findViewById(R.id.enterUserName);
         password = findViewById(R.id.enterPassword);
-        Button createAccountButton = findViewById(R.id.createAccount);
-
-        View.OnClickListener accountListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LogIn.this, CreateAccount.class));
-                LogIn.this.finish();
-            }
-        };
-
-
 
     }
     public void logInFunction(View view){
@@ -64,7 +53,10 @@ public class LogIn extends AppCompatActivity {
         }
 
     }
-        //Im saving the below commented out code for future screens
+    public void createAccount(View view) {
+        startActivity(new Intent(LogIn.this, CreateAccount.class));
+    }
+    //Im saving the below commented out code for future screens
 
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
