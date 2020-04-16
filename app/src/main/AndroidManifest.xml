@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".tempZoom"
+        <activity android:name=".ExpandZoomEvent"></activity>
+        <activity
+            android:name=".ViewForumList"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".ViewZoomEvents"
+            android:name=".ViewZoomList"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".CreateZoomMeeting"

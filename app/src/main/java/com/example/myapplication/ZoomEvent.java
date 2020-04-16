@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
-public class ZoomEvent
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ZoomEvent implements Parcelable
 {
     // Each event has a title and a date / time
     private String title;
@@ -21,6 +24,46 @@ public class ZoomEvent
         roomCode = code;
         course = courseID;
     }
+
+    protected ZoomEvent(Parcel in) {
+        title = in.readString();
+        roomCode = in.readString();
+        course = in.readString();
+        year = in.readInt();
+        month = in.readInt();
+        day = in.readInt();
+        hour = in.readInt();
+        minute = in.readInt();
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(roomCode);
+        dest.writeString(course);
+        dest.writeInt(year);
+        dest.writeInt(month);
+        dest.writeInt(day);
+        dest.writeInt(hour);
+        dest.writeInt(minute);
+    }
+
+    public static final Creator<ZoomEvent> CREATOR = new Creator<ZoomEvent>() {
+        @Override
+        public ZoomEvent createFromParcel(Parcel in) {
+            return new ZoomEvent(in);
+        }
+
+        @Override
+        public ZoomEvent[] newArray(int size) {
+            return new ZoomEvent[size];
+        }
+    };
+
     // Accessor methods
     public String getTitle()
     {
@@ -52,4 +95,7 @@ public class ZoomEvent
     public String getRoomCode() {
         return roomCode;
     }
+
+
+
 }
