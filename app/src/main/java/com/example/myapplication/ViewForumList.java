@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,12 +13,13 @@ import java.util.ArrayList;
 public class ViewForumList extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ForumDataAdapter mAdapter;
     private  RecyclerView.LayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
+
 
         ArrayList<DiscussionThread> forumEvents = new ArrayList<>();
         ClientCommunicator.getThreads();
@@ -28,5 +31,15 @@ public class ViewForumList extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new ForumDataAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                Intent intent2 = new Intent(ViewForumList.this, ExpandForum.class);
+                intent2.putExtra("ForumThread", forumEvents.get(position));
+                startActivity(intent2);
+            }
+        });
     }
 }

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +34,7 @@ public class LogIn extends AppCompatActivity {
         // Similarly for context
         context = getApplicationContext();
 
-        userName = findViewById(R.id.enterUserName);
+        userName = findViewById(R.id.enterForumTitle);
         password = findViewById(R.id.enterPassword);
 
     }

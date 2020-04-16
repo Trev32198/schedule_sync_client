@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ExpandForum">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/forumTitle"
+                android:layout_width="340dp"
+                android:layout_height="80dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/forumCreator"
+                android:layout_width="340dp"
+                android:layout_height="80dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/forumClass"
+                android:layout_width="340dp"
+                android:layout_height="80dp"
+                android:text="TextView" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/viewCommentsButton"
+                android:text="View Comments"
+                android:onClick="viewComments"/>
+        </LinearLayout>
+</ScrollView>

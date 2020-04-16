@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="60dp"
-    android:orientation="vertical"
     android:gravity="center"
     tools:context=".ExpandZoomEvent">
 
@@ -13,59 +13,183 @@
     <TextView
         android:id="@+id/zoomTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="left"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/zoomCourse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/zoomCourse"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:text="TextView"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/zoomCode"
+        app:layout_constraintStart_toStartOf="@+id/zoomTitle"
+        app:layout_constraintTop_toBottomOf="@+id/zoomTitle" />
 
     <TextView
         android:id="@+id/zoomCode"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:layout_marginBottom="83dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/zoomDay"
+        app:layout_constraintStart_toStartOf="@+id/zoomCourse"
+        app:layout_constraintTop_toBottomOf="@+id/zoomCourse" />
 
     <TextView
         android:id="@+id/zoomMonth"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_marginTop="84dp"
+        android:layout_marginBottom="83dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/zoomDay"
+        app:layout_constraintStart_toStartOf="@+id/zoomCode"
+        app:layout_constraintTop_toTopOf="@+id/zoomCode" />
 
     <TextView
         android:id="@+id/zoomDay"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/zoomYear"
+        app:layout_constraintStart_toStartOf="@+id/zoomMonth"
+        app:layout_constraintTop_toBottomOf="@+id/zoomCode" />
 
     <TextView
         android:id="@+id/zoomYear"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/zoomHour"
+        app:layout_constraintStart_toStartOf="@+id/zoomHour"
+        app:layout_constraintTop_toBottomOf="@+id/zoomDay" />
 
     <TextView
         android:id="@+id/zoomHour"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/zoomMinute"
+        app:layout_constraintStart_toStartOf="@+id/zoomMinute"
+        app:layout_constraintTop_toBottomOf="@+id/zoomYear" />
 
     <TextView
         android:id="@+id/zoomMinute"
         android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zoomHour" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Title:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Course:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomCourse"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Code:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomCode"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Day:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomMonth"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Month:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomDay"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Year:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomYear"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Hour:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomHour"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:gravity="center"
+        android:text="Minute:"
+        app:layout_constraintEnd_toStartOf="@+id/zoomMinute"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,22 +14,44 @@ import java.util.ArrayList;
 public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.ForumViewHolder> {
 
     private ArrayList<DiscussionThread> mForumList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public static class ForumViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView forumTitle;
-        public TextView forumCourse;
+        public TextView ForumTitle;
+        public TextView ForumCourse;
 
-        public ForumViewHolder(@NonNull View itemView) {
+        public ForumViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            forumTitle = itemView.findViewById(R.id.forumListTitle);
-            forumCourse = itemView.findViewById((R.id.forumListCourse));
+
+            ForumTitle = itemView.findViewById(R.id.forumListTitle);
+            ForumCourse = itemView.findViewById((R.id.forumListCourse));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
 
         }
     }
 
-    public ForumDataAdapter(ArrayList<DiscussionThread> forumList){
-        mForumList = forumList;
+    public ForumDataAdapter(ArrayList<DiscussionThread> ForumList){
+        mForumList = ForumList;
     }
 
     @NonNull
@@ -37,18 +59,15 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
     public ForumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate
                 (R.layout.activity_view_forum_list, parent, false);
-        ForumViewHolder zvh = new ForumViewHolder(v);
+        ForumViewHolder zvh = new ForumViewHolder(v, mListener);
         return zvh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ForumViewHolder holder, int position) {
         DiscussionThread currentItem = mForumList.get(position);
-
-        System.out.println(mForumList);
-        holder.forumTitle.setText(currentItem.getThreadName());
-        holder.forumCourse.setText(currentItem.getAssociatedCourse());
-
+        holder.ForumTitle.setText(currentItem.getThreadName());
+        holder.ForumCourse.setText(currentItem.getAssociatedCourse());
     }
 
     @Override

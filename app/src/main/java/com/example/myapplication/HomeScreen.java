@@ -38,6 +38,10 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(new Intent(HomeScreen.this, ViewZoomList.class ));
     }
 
+    public void createForum(View view){
+        startActivity(new Intent( HomeScreen.this, CreateForum.class));
+    }
+
     public void viewForum(View view){
         startActivity(new Intent(HomeScreen.this, ViewForumList.class ));
     }

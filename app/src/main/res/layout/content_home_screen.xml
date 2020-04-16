@@ -51,6 +51,13 @@
             android:text="View Zoom Meetings" />
 
         <Button
+            android:id="@+id/createForumButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="createForum"
+            android:text="Create Forum" />
+
+        <Button
             android:id="@+id/forumButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
