@@ -36,9 +36,10 @@ public class ViewForumList extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new ForumDataAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(ViewForumList.this, ExpandForum.class);
-                intent.putExtra("Forum", forumEvents.get(position));
-                startActivity(intent);
+
+                Intent intent2 = new Intent(ViewForumList.this, ExpandForum.class);
+                intent2.putExtra("ForumThread", forumEvents.get(position));
+                startActivity(intent2);
             }
         });
     }
