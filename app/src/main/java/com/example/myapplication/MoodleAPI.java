@@ -12,9 +12,11 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,11 +25,11 @@ public class MoodleAPI {
     private static String token = "";
     private static String username = "";
     private static String password = "";
-    private static ArrayList<MoodleCourse> courseList = new ArrayList<MoodleCourse>();
-    private static ArrayList<MoodleAssignment> assignmentList = new ArrayList<MoodleAssignment>();
+    private static ArrayList<MoodleCourse> courseList = new ArrayList<>();
+    private static ArrayList<MoodleAssignment> assignmentList = new ArrayList<>();
 
     // To set the user's credentials before trying to pull data
-    public static void setCredentials() {
+    static void setCredentials() {
         username = SettingsManager.getMoodleUsername();
         password = SettingsManager.getMoodlePassword();
     }
@@ -58,7 +60,8 @@ public class MoodleAPI {
     }
 
     // Check credentials
-    public static boolean checkCredentials() {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean checkCredentials() {
         try {
             return getToken();
         } catch (IOException e) {
@@ -70,6 +73,7 @@ public class MoodleAPI {
     // private because whether this needs to be called or not is
     // determined in this class's other methods (TODO)
     // Credentials must be set first
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static boolean getToken() throws IOException {
         // To be able to do a little networking on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -96,7 +100,7 @@ public class MoodleAPI {
             // The value
             postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
         }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
 
         // Open the connection and send the POST request
         HttpURLConnection connect = (HttpURLConnection)url.openConnection();
@@ -107,14 +111,14 @@ public class MoodleAPI {
         connect.getOutputStream().write(postDataBytes);
 
         // Get response
-        Reader in = new BufferedReader(new InputStreamReader(connect.getInputStream(), "UTF-8"));
+        Reader in = new BufferedReader(new InputStreamReader(connect.getInputStream(), StandardCharsets.UTF_8));
         // String to store POST response
-        String rawTok = "";
+        StringBuilder rawTok = new StringBuilder();
         for (int c = in.read(); c >= 0; c = in.read())
-            rawTok = rawTok + (char)c;
+            rawTok.append((char) c);
         try {
             Pattern pattern = Pattern.compile(".*?\"token\"\\s*?:\\s*?\"(.*?)\".*?");
-            Matcher matcher = pattern.matcher(rawTok);
+            Matcher matcher = pattern.matcher(rawTok.toString());
             if (matcher.find()) {
                 token = matcher.group(1);
             } else {
@@ -128,7 +132,8 @@ public class MoodleAPI {
         return true;
     }
 
-    public static boolean fetchClassList() throws IOException {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean fetchClassList() throws IOException {
         // To be able to do a little networking on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -145,7 +150,7 @@ public class MoodleAPI {
             postData.append('=');
             postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
         }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
 
         HttpURLConnection conner = (HttpURLConnection)url.openConnection();
         conner.setRequestMethod("POST");
@@ -154,20 +159,20 @@ public class MoodleAPI {
         conner.setDoOutput(true);
         conner.getOutputStream().write(postDataBytes);
 
-        Reader in = new BufferedReader(new InputStreamReader(conner.getInputStream(), "UTF-8"));
-        String rawClass = "";
+        Reader in = new BufferedReader(new InputStreamReader(conner.getInputStream(), StandardCharsets.UTF_8));
+        StringBuilder rawClass = new StringBuilder();
         for (int c = in.read(); c >= 0; c = in.read())
-            rawClass = rawClass + (char)c;
+            rawClass.append((char) c);
         // For debug purposes
         // System.out.println(rawClass);
         // To house new list of courses until parsing is done
         // When parsing is done and successful, the current list of courses
         // will be updated to be this list
-        ArrayList<MoodleCourse> newCourseList = new ArrayList<MoodleCourse>();
+        ArrayList<MoodleCourse> newCourseList = new ArrayList<>();
         try {
             // Extract course IDs and shortnames
             Pattern pattern = Pattern.compile(".*?\"id\"\\s*?:\\s*?([0-9]+).*?\"shortname\"\\s*?:\\s*?\"(.*?)\".*?");
-            Matcher matcher = pattern.matcher(rawClass);
+            Matcher matcher = pattern.matcher(rawClass.toString());
             if (matcher.find(0)) {
                 newCourseList.add(new MoodleCourse(matcher.group(1), matcher.group(2)));
                 while (matcher.find(matcher.end())) {
@@ -190,13 +195,13 @@ public class MoodleAPI {
     }
 
     // Return the list of courses
-    public static ArrayList<MoodleCourse> getCourseList() {
+    static ArrayList<MoodleCourse> getCourseList() {
         return courseList;
     }
 
     // Pull list of MoodleAssignments for specified course ID
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static boolean fetchAssignment(String courseID) throws IOException {
+    static boolean fetchAssignment(String courseID) throws IOException {
         // To be able to do a little networking on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -215,7 +220,7 @@ public class MoodleAPI {
             postData.append('=');
             postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
         }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
 
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("POST");
@@ -224,24 +229,24 @@ public class MoodleAPI {
         conn.setDoOutput(true);
         conn.getOutputStream().write(postDataBytes);
 
-        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        String rawAs = "";
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        StringBuilder rawAs = new StringBuilder();
         for (int c = in.read(); c >= 0; c = in.read())
-            rawAs = rawAs + (char)c;
+            rawAs.append((char) c);
         // For debug purposes
         System.out.println(rawAs);
 
-        ArrayList<MoodleAssignment> newAssignmentList = new ArrayList<MoodleAssignment>();
+        ArrayList<MoodleAssignment> newAssignmentList = new ArrayList<>();
         try {
             // Extract assignment names, due dates / times
             // Ensure only assignments for current course are grabbed, just in case
             Pattern pattern = Pattern.compile("\"course\"\\s*?:\\s*?" + courseID + "\\s*?,.*?\"name\"\\s*?:\\s*?\"(.*?)\".*?\"duedate\"\\s*?:\\s*?([0-9]*)\\s*?,");
-            Matcher matcher = pattern.matcher(rawAs);
+            Matcher matcher = pattern.matcher(rawAs.toString());
             if (matcher.find(0)) {
                 // Each assignment needs a name, and the epoch time as given by Moodle
-                newAssignmentList.add(new MoodleAssignment(matcher.group(1), Long.parseLong(matcher.group(2))));
+                newAssignmentList.add(new MoodleAssignment(matcher.group(1), Long.parseLong(Objects.requireNonNull(matcher.group(2)))));
                 while (matcher.find(matcher.end())) {
-                    newAssignmentList.add(new MoodleAssignment(matcher.group(1), Long.parseLong(matcher.group(2))));
+                    newAssignmentList.add(new MoodleAssignment(matcher.group(1), Long.parseLong(Objects.requireNonNull(matcher.group(2)))));
                 }
             } else {
                 System.out.println("Nothing found in data");
@@ -260,7 +265,7 @@ public class MoodleAPI {
     }
 
     // Get the list of assignments
-    public static ArrayList<MoodleAssignment> getAssignmentList() {
+    static ArrayList<MoodleAssignment> getAssignmentList() {
         return assignmentList;
     }
 }

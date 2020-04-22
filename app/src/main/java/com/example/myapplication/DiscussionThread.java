@@ -8,19 +8,19 @@ public class DiscussionThread implements Parcelable {
     private String associatedCourse;
     private String creatorUsername;
 
-    public DiscussionThread(String threadName, String associatedCourse, String creatorUsername) {
+    DiscussionThread(String threadName, String associatedCourse, String creatorUsername) {
         this.threadName = threadName;
         this.associatedCourse = associatedCourse;
         this.creatorUsername = creatorUsername;
     }
 
-    public DiscussionThread(String threadName, String associatedCourse) {
+    DiscussionThread(String threadName, String associatedCourse) {
         this.threadName = threadName;
         this.associatedCourse = associatedCourse;
         this.creatorUsername = ClientCommunicator.getUsername();
     }
 
-    protected DiscussionThread(Parcel in) {
+    private DiscussionThread(Parcel in) {
         threadName = in.readString();
         associatedCourse = in.readString();
         creatorUsername = in.readString();
@@ -38,15 +38,15 @@ public class DiscussionThread implements Parcelable {
         }
     };
 
-    public String getAssociatedCourse() {
+    String getAssociatedCourse() {
         return associatedCourse;
     }
 
-    public String getThreadName() {
+    String getThreadName() {
         return threadName;
     }
 
-    public String getCreatorUsername() {
+    String getCreatorUsername() {
         return creatorUsername;
     }
 

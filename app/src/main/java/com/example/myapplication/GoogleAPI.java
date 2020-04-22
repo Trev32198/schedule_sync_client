@@ -27,12 +27,11 @@ import com.google.api.services.calendar.model.Events;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class GoogleAPI {
+class GoogleAPI {
     private static final String CAL_APP_NAME = "Simple GCal API For Java";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     // get the scope of the application to obtain the required access permission
@@ -44,7 +43,7 @@ public class GoogleAPI {
     private static Calendar calendarService;
     private static boolean eventExists = false;
 
-    public static boolean prepareAPI() {
+    static boolean prepareAPI() {
         try {
             // Build a new authorized API client service.
             final NetHttpTransport HTTP_TRANSPORT = new com.google.api.client.http.javanet.NetHttpTransport();
@@ -129,7 +128,7 @@ public class GoogleAPI {
      */
     // dateString is date as YYYY-MM-DD
     // timeString is time as HH:MM
-    public static void createNewEvent(String summary, String dateString, String timeString) throws IOException, GeneralSecurityException {
+    static void createNewEvent(String summary, String dateString, String timeString) throws IOException {
         // Check if event exists first
         if (eventExists(summary, dateString, timeString)) {
             System.out.println("\nThe event already exists...Not Required to add again.");

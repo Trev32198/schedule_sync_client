@@ -8,7 +8,7 @@ package com.example.myapplication;
 public class CustomDateTime {
     private int year, month, day, hour, minute;
 
-    public CustomDateTime(int year, int month, int day, int hour, int minute) {
+    CustomDateTime(int year, int month, int day, int hour, int minute) {
         this.year = year;
         this.month = month;
         this.day = day;

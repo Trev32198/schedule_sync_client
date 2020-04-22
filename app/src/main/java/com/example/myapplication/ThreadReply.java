@@ -11,7 +11,7 @@ public class ThreadReply implements Parcelable {
     private String username;
     private CustomDateTime datetime;
 
-    public ThreadReply(String txt, String usr, CustomDateTime datetime) {
+    ThreadReply(String txt, String usr, CustomDateTime datetime) {
         body = txt;
         username = usr;
         this.datetime = datetime;
@@ -34,15 +34,15 @@ public class ThreadReply implements Parcelable {
         }
     };
 
-    public CustomDateTime getDatetime() {
+    CustomDateTime getDatetime() {
         return datetime;
     }
 
-    public String getUsername() {
+    String getUsername() {
         return username;
     }
 
-    public String getBody() {
+    String getBody() {
         return body;
     }
 

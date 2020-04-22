@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
-public class Calendar {
+class Calendar {
     // Syncs Moodle and Google calendars
     // Returns boolean indicating success or failure
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static boolean syncCalendars() {
+    static boolean syncCalendars() {
         try {
             // First set credentials
             MoodleAPI.setCredentials();
@@ -24,7 +24,7 @@ public class Calendar {
             if (!MoodleAPI.fetchClassList()) {
                 return false;
             }
-            ArrayList<MoodleAssignment> assignments = new ArrayList<MoodleAssignment>();
+            ArrayList<MoodleAssignment> assignments = new ArrayList<>();
             // Loop over classes
             for (MoodleCourse course : MoodleAPI.getCourseList()) {
                 // Fetch assignments for the course

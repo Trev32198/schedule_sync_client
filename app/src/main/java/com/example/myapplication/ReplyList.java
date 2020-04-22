@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ public class ReplyList extends AppCompatActivity {
     TextView replyDate;
     TextView replyBody;
     DiscussionThread forumEvent;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,7 @@ public class ReplyList extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void sendReply(View view){
         ClientCommunicator.postReply(forumEvent, reply.getText().toString());
     }

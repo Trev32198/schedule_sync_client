@@ -1,12 +1,16 @@
 package com.example.myapplication;// Networking functionality
 
+import android.os.Build;
 import android.os.StrictMode;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 // ArrayList
@@ -25,7 +29,8 @@ public class ClientCommunicator
     private static String authToken = "";
     private static String latestResult = "";
     // Sends command to server and gets its response
-    private static String sendToServer(String command, String args[]) throws UnknownHostException, IOException
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private static String sendToServer(String command, String[] args) throws IOException
     {
         // For debug purposes
         System.out.println("Sending server the following args:");
@@ -37,19 +42,19 @@ public class ClientCommunicator
         // To be able to do a little networking on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String toSend = command;
+        StringBuilder toSend = new StringBuilder(command);
         for (String arg : args)
         {
-            toSend += "\n" + arg;
+            toSend.append("\n").append(arg);
         }
         // EOF marker
-        toSend += (char)(0x04);
+        toSend.append((char) (0x04));
         System.out.println("About to connect");
         Socket connectionSocket = new Socket(SERVER, PORT);
         DataOutputStream dataOutStream = new DataOutputStream(connectionSocket.getOutputStream());
         DataInputStream dataInStream = new DataInputStream(connectionSocket.getInputStream());
-        dataOutStream.write(toSend.getBytes("UTF-8"));
-        ArrayList<Byte> byteString = new ArrayList<Byte>();
+        dataOutStream.write(toSend.toString().getBytes(StandardCharsets.UTF_8));
+        ArrayList<Byte> byteString = new ArrayList<>();
         while (true)
         {
             int b = dataInStream.read();
@@ -62,12 +67,12 @@ public class ClientCommunicator
                 break;
             }
         }
-        byte outputBytes[] = new byte[byteString.size()];
+        byte[] outputBytes = new byte[byteString.size()];
         for (int i = 0; i < byteString.size(); i++)
         {
             outputBytes[i] = byteString.get(i);
         }
-        String output = new String(outputBytes, "UTF-8");
+        String output = new String(outputBytes, StandardCharsets.UTF_8);
         dataInStream.close();
         dataOutStream.close();
         connectionSocket.close();
@@ -75,7 +80,7 @@ public class ClientCommunicator
     }
     // Allow the rest of the app to get the results returned from the server, minus
     // the SUCCESS, FAILURE, and EOF markers
-    public static String getLatestResult()
+    static String getLatestResult()
     {
         System.out.println(latestResult);
         return latestResult.replace(SUCCESS, "").replace(FAILURE, "");
@@ -84,8 +89,9 @@ public class ClientCommunicator
     // All commands / methods require authentication except createAccount
     // All commands / methods store their results in this->latestResult
     // All commands / methods return a boolean indicating success or failure
-    public static boolean createAccount(String username2, String password2,
-                              String sq2, String sqa2)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean createAccount(String username2, String password2,
+                                 String sq2, String sqa2)
     {
         try
         {
@@ -108,7 +114,8 @@ public class ClientCommunicator
         catch (UnknownHostException e) {System.out.println(e); return false;}
         catch (IOException e) {System.out.println(e); return false;}
     }
-    public static boolean changePW(String newPassword)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean changePW(String newPassword)
     {
         try
         {
@@ -124,7 +131,8 @@ public class ClientCommunicator
         catch (UnknownHostException e) {return false;}
         catch (IOException e) {return false;}
     }
-    public static boolean changeSQ(String newSQ, String newSQA)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean changeSQ(String newSQ, String newSQA)
     {
         try
         {
@@ -141,7 +149,8 @@ public class ClientCommunicator
         catch (UnknownHostException e) {return false;}
         catch (IOException e) {return false;}
     }
-    public static boolean deleteAccount()
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean deleteAccount()
     {
         try
         {
@@ -154,6 +163,7 @@ public class ClientCommunicator
         catch (UnknownHostException e) {return false;}
         catch (IOException e) {return false;}
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean searchUser(String query)
     {
         try
@@ -165,7 +175,8 @@ public class ClientCommunicator
         catch (IOException e) {return false;}
     }
 
-    public static boolean postZoomEvent(ZoomEvent event) {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean postZoomEvent(ZoomEvent event) {
         try {
             String dateString = event.getYear() + "-" + event.getMonth() + "-" + event.getDay();
             String timeString = event.getHour() + ":" + event.getMinute();
@@ -178,6 +189,7 @@ public class ClientCommunicator
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean getZoomEvents() {
         try {
             // Log in
@@ -189,14 +201,14 @@ public class ClientCommunicator
                 return false;
             }
             ArrayList<MoodleCourse> enrolledCourses = MoodleAPI.getCourseList();
-            String enrolledCourseIDs = "";
+            StringBuilder enrolledCourseIDs = new StringBuilder();
             for (MoodleCourse course : enrolledCourses) {
                 // Course IDs are numbers, send them all on
                 // one line separated by commas
                 // Last comma will be ignored by server
-                enrolledCourseIDs += course.getShortName() + ",";
+                enrolledCourseIDs.append(course.getShortName()).append(",");
             }
-            latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, authToken, authType, enrolledCourseIDs});
+            latestResult = sendToServer("GET ZOOM EVENTS", new String[]{username, authToken, authType, enrolledCourseIDs.toString()});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -205,6 +217,7 @@ public class ClientCommunicator
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean deleteZoomEvent(String code) {
         try {
             latestResult = sendToServer("DELETE ZOOM EVENT", new String[]{username, authToken, authType, code});
@@ -216,7 +229,8 @@ public class ClientCommunicator
         }
     }
 
-    public static boolean postNewThread(DiscussionThread thread) {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean postNewThread(DiscussionThread thread) {
         try {
             latestResult = sendToServer("POST THREAD", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
             return latestResult.contains(SUCCESS);
@@ -227,7 +241,8 @@ public class ClientCommunicator
         }
     }
 
-    public static boolean getThreads() {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean getThreads() {
         try {
             // Log in
             MoodleAPI.setCredentials();
@@ -238,14 +253,14 @@ public class ClientCommunicator
                 return false;
             }
             ArrayList<MoodleCourse> enrolledCourses = MoodleAPI.getCourseList();
-            String enrolledCourseIDs = "";
+            StringBuilder enrolledCourseIDs = new StringBuilder();
             for (MoodleCourse course : enrolledCourses) {
                 // Course IDs are numbers, send them all on
                 // one line separated by commas
                 // Last comma will be ignored by server
-                enrolledCourseIDs += course.getShortName() + ",";
+                enrolledCourseIDs.append(course.getShortName()).append(",");
             }
-            latestResult = sendToServer("GET THREADS", new String[]{username, authToken, authType, enrolledCourseIDs});
+            latestResult = sendToServer("GET THREADS", new String[]{username, authToken, authType, enrolledCourseIDs.toString()});
             return latestResult.contains(SUCCESS);
         } catch (UnknownHostException e) {
             return false;
@@ -258,7 +273,8 @@ public class ClientCommunicator
     // ClientCommunicator sends the username for authentication and the server
     // knows the right time to associate with the post
     // So, we only send the reply text
-    public static boolean postReply(DiscussionThread thread, String replyText) {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean postReply(DiscussionThread thread, String replyText) {
         try {
             // Need to tell server info that identifies the thread in which we want to reply
             // We also need to specify reply data
@@ -272,7 +288,8 @@ public class ClientCommunicator
         }
     }
 
-    public static boolean getReplies(DiscussionThread thread) {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean getReplies(DiscussionThread thread) {
         try {
             latestResult = sendToServer("GET REPLIES", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
             return latestResult.contains(SUCCESS);
@@ -283,14 +300,14 @@ public class ClientCommunicator
         }
     }
 
-    public static String getUsername() {
+    static String getUsername() {
         return username;
     }
 
     // Allow the user to set credentials and authentication type manually, just in case
     // security question authentication is needed
-    public static void setCredentials(String username2, String authToken2,
-                              String authType2)
+    static void setCredentials(String username2, String authToken2,
+                               String authType2)
     {
         username = username2;
         authToken = authToken2;

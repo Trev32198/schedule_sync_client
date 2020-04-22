@@ -20,16 +20,16 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
-    public static class ForumViewHolder extends RecyclerView.ViewHolder {
+    static class ForumViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView ForumTitle;
-        public TextView ForumCourse;
+        TextView ForumTitle;
+        TextView ForumCourse;
 
-        public ForumViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        ForumViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             ForumTitle = itemView.findViewById(R.id.forumListTitle);
@@ -50,7 +50,7 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
         }
     }
 
-    public ForumDataAdapter(ArrayList<DiscussionThread> ForumList){
+    ForumDataAdapter(ArrayList<DiscussionThread> ForumList){
         mForumList = ForumList;
     }
 
@@ -59,8 +59,7 @@ public class ForumDataAdapter extends RecyclerView.Adapter<ForumDataAdapter.Foru
     public ForumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate
                 (R.layout.activity_view_forum_list, parent, false);
-        ForumViewHolder zvh = new ForumViewHolder(v, mListener);
-        return zvh;
+        return new ForumViewHolder(v, mListener);
     }
 
     @Override

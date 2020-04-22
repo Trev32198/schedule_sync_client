@@ -32,7 +32,7 @@ public class ServerResponseParser {
         return events;
     }
 
-    public static ArrayList<DiscussionThread> parseDiscussionThreads() {
+    static ArrayList<DiscussionThread> parseDiscussionThreads() {
         String serverResponse = ClientCommunicator.getLatestResult();
         System.out.println("Response to parse:");
         System.out.println(serverResponse);
@@ -54,7 +54,7 @@ public class ServerResponseParser {
         return threads;
     }
 
-    public static ArrayList<ThreadReply> parseReplies() {
+    static ArrayList<ThreadReply> parseReplies() {
         String serverResponse = ClientCommunicator.getLatestResult();
         if (serverResponse.equals("")) {
             System.out.println("Server response empty, no replies to parse.");

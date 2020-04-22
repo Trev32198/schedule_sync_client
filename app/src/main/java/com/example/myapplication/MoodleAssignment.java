@@ -14,7 +14,7 @@ public class MoodleAssignment
     private LocalDateTime ldt;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public MoodleAssignment(String name, long epochTime)
+    MoodleAssignment(String name, long epochTime)
     {
         this.name = name;
         // Convert epoch time, UTC, to LocalDateTime
@@ -22,36 +22,37 @@ public class MoodleAssignment
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public String getDateString() {
+    String getDateString() {
         return getYear() + "-" + getMonth() + "-" + getDay();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int getYear() {
+    private int getYear() {
         return ldt.getYear();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int getMonth() {
+    private int getMonth() {
         return ldt.getMonthValue();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int getDay() {
+    private int getDay() {
         return ldt.getDayOfMonth();
     }
+
     public String getName()
     {
         return name;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int getHour() {
+    int getHour() {
         return ldt.getHour();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int getMinute() {
+    int getMinute() {
         return ldt.getMinute();
     }
 }
