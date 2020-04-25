@@ -300,6 +300,16 @@ public class ClientCommunicator
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean searchThreads(String query) {
+        try {
+            latestResult = sendToServer("SEARCH THREADS", new String[]{username, authToken, authType, query});
+            return latestResult.contains(SUCCESS);
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
     static String getUsername() {
         return username;
     }
