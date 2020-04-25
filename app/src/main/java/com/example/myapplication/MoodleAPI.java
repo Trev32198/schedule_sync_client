@@ -199,9 +199,10 @@ public class MoodleAPI {
         return courseList;
     }
 
+    // Next two methods are now deprecated for out of class usage
     // Pull list of MoodleAssignments for specified course ID
     @RequiresApi(api = Build.VERSION_CODES.O)
-    static boolean fetchAssignment(String courseID) throws IOException {
+    private static boolean fetchAssignment(String courseID) throws IOException {
         // To be able to do a little networking on main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -265,7 +266,34 @@ public class MoodleAPI {
     }
 
     // Get the list of assignments
-    static ArrayList<MoodleAssignment> getAssignmentList() {
+    private static ArrayList<MoodleAssignment> getAssignmentList() {
         return assignmentList;
+    }
+
+
+    // Get assignments associated with all classes
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    static ArrayList<MoodleAssignment> getAllAssignments() throws IOException {
+        ArrayList<MoodleAssignment> assignments = new ArrayList<>();
+        // First set credentials
+        MoodleAPI.setCredentials();
+        if (!MoodleAPI.checkCredentials()) {
+            return assignments;
+        }
+        // Next pull data from Moodle API
+        // Credentials must have been set first
+        if (!MoodleAPI.fetchClassList()) {
+            return assignments;
+        }
+        // Loop over classes
+        for (MoodleCourse course : MoodleAPI.getCourseList()) {
+            // Fetch assignments for the course
+            if (MoodleAPI.fetchAssignment(course.getID())) {
+                // Add them to the list to sync
+                // Will not get here if unsuccessful or if no assignments
+                assignments.addAll(MoodleAPI.getAssignmentList());
+            }
+        }
+        return assignments;
     }
 }
