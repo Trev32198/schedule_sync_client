@@ -1,13 +1,19 @@
 package com.example.myapplication;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.ArrayList;
 
 public class DiscussionThread implements Parcelable {
     private String threadName;
     private String associatedCourse;
     private String creatorUsername;
     // Not set automatically, only used / set currently for sorting by time of last post
+    // and in the expiration filter
     private CustomDateTime lastPostTime;
 
     DiscussionThread(String threadName, String associatedCourse, String creatorUsername) {
@@ -44,8 +50,21 @@ public class DiscussionThread implements Parcelable {
         return lastPostTime;
     }
 
-    public void setLastPostTime(CustomDateTime dateTime) {
-        this.lastPostTime = dateTime;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public boolean setLastPostTime() {
+        if (!ClientCommunicator.getReplies(this)) {
+            return false;
+        }
+        ArrayList<ThreadReply> replies = ServerResponseParser.parseReplies();
+        // Threads with no posts will be considered very old
+        CustomDateTime lastPostTime = new CustomDateTime(0, 1, 1, 0, 0);
+        for (ThreadReply reply : replies) {
+            if (reply.getDatetime().comesAfter(lastPostTime)) {
+                lastPostTime = reply.getDatetime();
+            }
+        }
+        this.lastPostTime = lastPostTime;
+        return true;
     }
 
     String getAssociatedCourse() {

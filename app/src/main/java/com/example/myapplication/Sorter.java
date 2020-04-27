@@ -63,22 +63,10 @@ public class Sorter {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     static ArrayList<DiscussionThread> sortThreadByPostTime(ArrayList<DiscussionThread> threads, boolean reverse) {
         ArrayList<DiscussionThread> output = new ArrayList<>();
-        ArrayList<ThreadReply> replies;
         // Get time of last post for every thread
         // Insert each in correct location in output
         for (DiscussionThread thread : threads) {
-            if (!ClientCommunicator.getReplies(thread)) {
-                return new ArrayList<>();
-            }
-            replies = ServerResponseParser.parseReplies();
-            // Threads with no posts will be considered very old
-            CustomDateTime lastPostTime = new CustomDateTime(0, 1, 1, 0, 0);
-            for (ThreadReply reply : replies) {
-                if (reply.getDatetime().comesAfter(lastPostTime)) {
-                    lastPostTime = reply.getDatetime();
-                }
-            }
-            thread.setLastPostTime(lastPostTime);
+            thread.setLastPostTime();
             int lastAcceptableIndex = 0;
             for (int i = 0; i < output.size(); i++) {
                 if (thread.getLastPostTime().comesAfter(output.get(i).getLastPostTime())) {
