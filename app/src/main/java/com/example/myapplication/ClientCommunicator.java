@@ -358,6 +358,18 @@ public class ClientCommunicator
         return results;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean deleteThread(DiscussionThread thread) {
+        try {
+            latestResult = sendToServer("DELETE THREAD", new String[]{username, authToken, authType, thread.getThreadName(), thread.getAssociatedCourse()});
+            return latestResult.contains(SUCCESS);
+        } catch (UnknownHostException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
     static String getUsername() {
         return username;
     }
