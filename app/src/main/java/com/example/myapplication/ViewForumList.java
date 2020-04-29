@@ -21,6 +21,9 @@ public class ViewForumList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
+        
+        Toolbar toolbar = findViewById(R.id.toolbarSearch);
+        setSupportActionBar(toolbar);
 
 
         ArrayList<DiscussionThread> forumEvents;
@@ -44,5 +47,20 @@ public class ViewForumList extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.searchIcon) {
+            startActivity(new Intent(ViewForumList.this, PopSearch.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
