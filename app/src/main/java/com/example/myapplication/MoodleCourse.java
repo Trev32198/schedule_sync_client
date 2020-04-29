@@ -1,21 +1,21 @@
 package com.example.myapplication;
 
-public class MoodleCourse
+class MoodleCourse
 {
     private String shortName;
     private String ID;
 
-    public MoodleCourse(String ID, String shortName)
+    MoodleCourse(String ID, String shortName)
     {
         this.shortName = shortName;
         this.ID = ID;
     }
-    public String getShortName()
+    String getShortName()
     {
         return shortName;
     }
 
-    public String getID() {
+    String getID() {
         return ID;
     }
 }

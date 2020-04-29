@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ public class ViewForumList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ForumDataAdapter mAdapter;
     private  RecyclerView.LayoutManager mLayoutManager;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +26,7 @@ public class ViewForumList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        ArrayList<DiscussionThread> forumEvents = new ArrayList<>();
+        ArrayList<DiscussionThread> forumEvents;
         ClientCommunicator.getThreads();
         forumEvents = ServerResponseParser.parseDiscussionThreads();
         

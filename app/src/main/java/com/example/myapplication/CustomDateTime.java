@@ -8,7 +8,7 @@ package com.example.myapplication;
 public class CustomDateTime {
     private int year, month, day, hour, minute;
 
-    public CustomDateTime(int year, int month, int day, int hour, int minute) {
+    CustomDateTime(int year, int month, int day, int hour, int minute) {
         this.year = year;
         this.month = month;
         this.day = day;
@@ -54,6 +54,34 @@ public class CustomDateTime {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public boolean comesAfter(CustomDateTime otherDateTime) {
+        if (this.year > otherDateTime.year) {
+            return true;
+        } else if (this.year < otherDateTime.year) {
+            return false;
+        } else if (this.month > otherDateTime.month) {
+            return true;
+        } else if (this.month < otherDateTime.month) {
+            return false;
+        } else if (this.day > otherDateTime.day) {
+            return true;
+        } else if (this.day < otherDateTime.day) {
+            return false;
+        } else if (this.hour > otherDateTime.hour) {
+            return true;
+        } else if (this.hour < otherDateTime.hour) {
+            return false;
+        } else if (this.minute > otherDateTime.minute) {
+            return true;
+        } else if (this.minute < otherDateTime.minute) {
+            return false;
+        }
+        // If we get here, the times are the same, so just return true
+        else {
+            return true;
+        }
     }
 
     public String toString() {

@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -37,6 +39,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void createAccountFunction(View view) {
 
         enterUserName = findViewById(R.id.enterForumTitle);

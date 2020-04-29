@@ -59,8 +59,7 @@ public class ReplyDataAdapter extends RecyclerView.Adapter<ReplyDataAdapter.Repl
     public ReplyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate
                 (R.layout.activity_view_reply_list, parent, false);
-        ReplyViewHolder zvh = new ReplyViewHolder(v, mListener);
-        return zvh;
+        return new ReplyViewHolder(v, mListener);
     }
 
     @Override

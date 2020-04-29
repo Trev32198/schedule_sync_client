@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
@@ -32,7 +34,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
     }
 
     private static int convertMonthToInt(String monthName) {
-        ArrayList<String> months = new ArrayList<String>();
+        ArrayList<String> months = new ArrayList<>();
         months.add("January");
         months.add("February");
         months.add("March");
@@ -62,12 +64,13 @@ public class CreateZoomMeeting extends AppCompatActivity {
         for (MoodleCourse course : MoodleAPI.getCourseList()) {
             courseNames.add(course.getShortName());
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 courseNames);  //is this going to work?  i have no idea
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         classSpinner.setAdapter(dataAdapter);
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void createZoomEvent(View view){
         eventName = findViewById(R.id.eventName);
         day = findViewById(R.id.day);

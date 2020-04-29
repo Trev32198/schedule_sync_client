@@ -57,8 +57,7 @@ public class ZoomDataAdapter extends RecyclerView.Adapter<ZoomDataAdapter.ZoomVi
     public ZoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate
                 (R.layout.view_zoom_events_activity, parent, false);
-        ZoomViewHolder zvh = new ZoomViewHolder(v, mListener);
-        return zvh;
+        return new ZoomViewHolder(v, mListener);
     }
 
     @Override

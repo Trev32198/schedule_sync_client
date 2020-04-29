@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
@@ -43,13 +45,14 @@ public class CreateForum extends AppCompatActivity {
         for (MoodleCourse course : MoodleAPI.getCourseList()) {
             courseNames.add(course.getShortName());
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 courseNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         classSpinner.setAdapter(dataAdapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void createForum(View view){
 
         DiscussionThread discussionThread = new DiscussionThread(forumTitle.getText().toString(),

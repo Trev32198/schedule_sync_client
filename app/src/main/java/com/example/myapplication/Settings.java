@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +41,7 @@ public class Settings extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void changePassword(View view) {
 
         enterPasswordToChange = findViewById(R.id.enterPasswordToChange);
@@ -57,6 +60,7 @@ public class Settings extends AppCompatActivity {
             }
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void changeRecovery(View view) {
 
         newSQ = findViewById(R.id.newRecoveryQuestion);
@@ -70,6 +74,7 @@ public class Settings extends AppCompatActivity {
             }
         }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void deleteAccount(View view) {
 
         if (ClientCommunicator.deleteAccount()){
@@ -79,6 +84,7 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void storeMoodle(View view){
         moodleName = findViewById(R.id.moodleUsername);
         moodlePassword = findViewById(R.id.moodlePassword);

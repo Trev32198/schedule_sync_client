@@ -26,8 +26,7 @@ public class HomeScreen extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void syncCalendars(View view){
-        Calendar.syncCalendars();
-
+        //Calendar.syncCalendars();
     }
 
     public void createZoomScreen(View view){
