@@ -27,15 +27,6 @@
             android:text="Line 1"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/bumpForum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/forumTitle"
-            android:layout_toRightOf="@+id/forumTitle"
-            android:text="Bump" />
 
         <Button
             android:id="@+id/deleteForum"
