@@ -13,8 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PopSearch"
+            android:name=".SearchResults"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".SearchScreen"
+            android:theme="@style/AppTheme.CustomName" />
+
+        <activity
+            android:name=".PopSearch"
+            android:theme="@style/AppTheme.CustomName" />
         <activity
             android:name=".MyForums"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

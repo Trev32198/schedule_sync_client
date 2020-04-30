@@ -48,4 +48,7 @@ public class HomeScreen extends AppCompatActivity {
     public void myForums(View view) {
         startActivity(new Intent(HomeScreen.this, MyForums.class));
     }
+    public void searchSreen(View view) {
+        startActivity(new Intent(HomeScreen.this, SearchScreen.class));
+    }
 }
