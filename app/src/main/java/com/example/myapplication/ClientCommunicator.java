@@ -300,64 +300,6 @@ public class ClientCommunicator
         }
     }
 
-    // Do the search client side so we don't have to change the server
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    static ArrayList<DiscussionThread> searchThreadsByName(String query) {
-        // First get threads
-        // If unsuccessful, return an empty list
-        ArrayList<DiscussionThread> results = new ArrayList<>();
-        if (!getThreads()) {
-            return results;
-        }
-        // Parse server response
-        ArrayList<DiscussionThread> serverResponse = ServerResponseParser.parseDiscussionThreads();
-        // Search
-        for (DiscussionThread thread : serverResponse) {
-            if (thread.getThreadName().contains(query)) {
-                results.add(thread);
-            }
-        }
-        return results;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    static ArrayList<DiscussionThread> searchThreadsByCourse(String query) {
-        // First get threads
-        // If unsuccessful, return an empty list
-        ArrayList<DiscussionThread> results = new ArrayList<>();
-        if (!getThreads()) {
-            return results;
-        }
-        // Parse server response
-        ArrayList<DiscussionThread> serverResponse = ServerResponseParser.parseDiscussionThreads();
-        // Search
-        for (DiscussionThread thread : serverResponse) {
-            if (thread.getAssociatedCourse().contains(query)) {
-                results.add(thread);
-            }
-        }
-        return results;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    static ArrayList<DiscussionThread> searchThreadsByCreator(String query) {
-        // First get threads
-        // If unsuccessful, return an empty list
-        ArrayList<DiscussionThread> results = new ArrayList<>();
-        if (!getThreads()) {
-            return results;
-        }
-        // Parse server response
-        ArrayList<DiscussionThread> serverResponse = ServerResponseParser.parseDiscussionThreads();
-        // Search
-        for (DiscussionThread thread : serverResponse) {
-            if (thread.getCreatorUsername().contains(query)) {
-                results.add(thread);
-            }
-        }
-        return results;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     static boolean deleteThread(DiscussionThread thread) {
         try {

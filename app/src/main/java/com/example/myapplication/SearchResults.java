@@ -3,14 +3,9 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,8 +23,12 @@ public class SearchResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
         Intent intent = getIntent();
-        forumEvents = ClientCommunicator.searchThreadsByName(intent.getStringExtra("ForumThread"));
-        forumEvents = ExpirationFilter.removeExpired(Sorter.sort(ServerResponseParser.parseDiscussionThreads()));
+        // Bump order by default
+        Sorter.setSortMode("TIME");
+        Sorter.setReverse(true);
+        // Submit the query, search type must already be set
+        // Sort the results and remove expired threads
+        forumEvents = ExpirationFilter.removeExpired(Sorter.sort(Searcher.search(intent.getStringExtra("ForumThread"))));
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
