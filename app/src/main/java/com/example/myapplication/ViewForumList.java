@@ -34,8 +34,8 @@ public class ViewForumList extends AppCompatActivity {
 
 
         ClientCommunicator.getThreads();
-        forumEvents = ServerResponseParser.parseDiscussionThreads();
-        forumEvents.add( new DiscussionThread("what", "csc123"));
+        forumEvents = ExpirationFilter.removeExpired(Sorter.sort(ServerResponseParser.parseDiscussionThreads()));
+        //forumEvents.add( new DiscussionThread("what", "csc123"));
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
