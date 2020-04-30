@@ -57,6 +57,7 @@ public class CustomDateTime {
     }
 
     public boolean comesAfter(CustomDateTime otherDateTime) {
+        System.out.println("Comparing " + this + " to " + otherDateTime);
         if (this.year > otherDateTime.year) {
             return true;
         } else if (this.year < otherDateTime.year) {
