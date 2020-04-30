@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -34,17 +35,25 @@ public class MyForums extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new MyForumsDataAdapter(myForums);
 
+        Button deleteButton = findViewById(R.id.deleteForum);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
         final ArrayList<DiscussionThread> finalForumEvents = myForums;
+
         mAdapter.setOnItemClickListener(new MyForumsDataAdapter.OnItemClickListener() {
             public void onItemClick(int position) {
                 Intent intent2 = new Intent(MyForums.this, ExpandForum.class);
                 intent2.putExtra("ForumThread", finalForumEvents.get(position));
                 startActivity(intent2);
             }
-        });
 
+            @Override
+            public void onDeleteClick(int position) {
+                ClientCommunicator.deleteThread(finalForumEvents.get(position));
+                finish();
+                startActivity(new Intent(MyForums.this, MyForums.class));
+            }
+        });
     }
 }

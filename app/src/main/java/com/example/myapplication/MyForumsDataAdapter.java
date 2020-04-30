@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
 
     public interface OnItemClickListener{
         void onItemClick(int position);
+        void onDeleteClick(int position);
     }
 
     void setOnItemClickListener(OnItemClickListener listener) {
@@ -27,10 +29,12 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
     static class MyForumsViewHolder extends RecyclerView.ViewHolder {
 
         TextView MyForumTitle;
+        Button DeleteButton;
 
         MyForumsViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             MyForumTitle = itemView.findViewById(R.id.myForumTitle);
+            DeleteButton = itemView.findViewById(R.id.deleteForum);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -39,6 +43,18 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            DeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
                         }
                     }
                 }
