@@ -32,24 +32,29 @@ public class PopSearch extends Activity {
         Spinner searchChoice = findViewById(R.id.searchSpinner);
         switch (searchChoice.getSelectedItem().toString()){
             case "Sort by thread name":
-                Sorter.sortThreadsByName(ViewForumList.forumEvents, false);
+                Sorter.setSortMode("NAME");
+                Sorter.setReverse(false);
                 startActivity(new Intent(PopSearch.this, ViewForumList.class));
                 finish();
                 break;
             case "Sort by course":
-                Sorter.sortThreadsByCourse(ViewForumList.forumEvents, false);
+                Sorter.setSortMode("COURSE");
+                Sorter.setReverse(false);
                 startActivity(new Intent(PopSearch.this, ViewForumList.class));
                 finish();
                 break;
             case "Sort by newest post time":
-                Sorter.sortThreadByPostTime(ViewForumList.forumEvents, false);
+                Sorter.setSortMode("TIME");
+                Sorter.setReverse(true);
                 startActivity(new Intent(PopSearch.this, ViewForumList.class));
                 finish();
                 break;
             case "Sort by oldest post time":
-                Sorter.sortThreadByPostTime(ViewForumList.forumEvents, true);
+                Sorter.setSortMode("TIME");
+                Sorter.setReverse(false);
                 startActivity(new Intent(PopSearch.this, ViewForumList.class));
                 finish();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + searchChoice.getSelectedItem().toString());
         }

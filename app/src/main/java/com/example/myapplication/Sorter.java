@@ -7,7 +7,40 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 
 public class Sorter {
-    static ArrayList<DiscussionThread> sortThreadsByName(ArrayList<DiscussionThread> threads, boolean reverse) {
+    private static String sortMode = "TIME";
+    private static boolean reverse = true;
+
+    static String getSortMode() {
+        return sortMode;
+    }
+
+    static void setSortMode(String mode) {
+        sortMode = mode;
+    }
+
+    static boolean getReverse() {
+        return reverse;
+    }
+
+    static void setReverse(boolean sortInReverse) {
+        reverse = sortInReverse;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static ArrayList<DiscussionThread> sort(ArrayList<DiscussionThread> threads) {
+        switch (sortMode) {
+            case "TIME":
+                return sortThreadByPostTime(threads);
+            case "NAME":
+                return sortThreadsByName(threads);
+            case "COURSE":
+                return sortThreadsByCourse(threads);
+            default:
+                throw new IllegalStateException("Unexpected value: " + sortMode);
+        }
+    }
+
+    private static ArrayList<DiscussionThread> sortThreadsByName(ArrayList<DiscussionThread> threads) {
         ArrayList<DiscussionThread> output = new ArrayList<>();
         if (threads.size() == 0) {
             return output;
@@ -33,7 +66,7 @@ public class Sorter {
         return output;
     }
 
-    static ArrayList<DiscussionThread> sortThreadsByCourse(ArrayList<DiscussionThread> threads, boolean reverse) {
+    private static ArrayList<DiscussionThread> sortThreadsByCourse(ArrayList<DiscussionThread> threads) {
         ArrayList<DiscussionThread> output = new ArrayList<>();
         if (threads.size() == 0) {
             return output;
@@ -61,7 +94,7 @@ public class Sorter {
 
     // Be careful, this uses ClientCommunicator and therefore will change what getLastestResult returns
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    static ArrayList<DiscussionThread> sortThreadByPostTime(ArrayList<DiscussionThread> threads, boolean reverse) {
+    private static ArrayList<DiscussionThread> sortThreadByPostTime(ArrayList<DiscussionThread> threads) {
         ArrayList<DiscussionThread> output = new ArrayList<>();
         // Get time of last post for every thread
         // Insert each in correct location in output
