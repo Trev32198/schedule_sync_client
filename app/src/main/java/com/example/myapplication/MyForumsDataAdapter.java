@@ -26,6 +26,18 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
         mListener = listener;
     }
 
+    @NonNull
+    @Override
+    public MyForumsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate
+                (R.layout.activity_my_forums, parent, false);
+        return new MyForumsViewHolder(v, mListener);
+    }
+
+    MyForumsDataAdapter(ArrayList<DiscussionThread> ForumList) {
+        mForumList = ForumList;
+    }
+
     static class MyForumsViewHolder extends RecyclerView.ViewHolder {
 
         TextView MyForumTitle;
@@ -36,7 +48,7 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
             MyForumTitle = itemView.findViewById(R.id.myForumTitle);
             DeleteButton = itemView.findViewById(R.id.deleteForum);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            MyForumTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
@@ -61,18 +73,6 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
             });
 
         }
-    }
-
-    MyForumsDataAdapter(ArrayList<DiscussionThread> ForumList){
-        mForumList = ForumList;
-    }
-
-    @NonNull
-    @Override
-    public MyForumsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate
-                (R.layout.activity_view_forum_list, parent, false);
-        return new MyForumsViewHolder(v, mListener);
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DiscussionThread implements Parcelable {
     private String threadName;
@@ -56,12 +57,17 @@ public class DiscussionThread implements Parcelable {
             return false;
         }
         ArrayList<ThreadReply> replies = ServerResponseParser.parseReplies();
-        // Threads with no posts will be considered very old
+        // Threads with no posts will be considered born today
+        Date date = new Date();
         CustomDateTime lastPostTime = new CustomDateTime(0, 1, 1, 0, 0);
         for (ThreadReply reply : replies) {
             if (reply.getDatetime().comesAfter(lastPostTime)) {
                 lastPostTime = reply.getDatetime();
             }
+        }
+        if (lastPostTime.getYear() == 0) {
+            lastPostTime = new CustomDateTime(date.getYear() + 1900, date.getMonth() + 1,
+                    date.getDate(), date.getHours(), date.getMinutes());
         }
         this.lastPostTime = lastPostTime;
         return true;
@@ -89,5 +95,10 @@ public class DiscussionThread implements Parcelable {
         dest.writeString(threadName);
         dest.writeString(associatedCourse);
         dest.writeString(creatorUsername);
+    }
+
+    // For debug purposes
+    public String toString() {
+        return this.threadName + " in course " + this.associatedCourse + " at time " + this.lastPostTime.toString();
     }
 }
