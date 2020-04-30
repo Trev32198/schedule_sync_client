@@ -58,6 +58,13 @@
             android:text="View Forums" />
 
         <Button
+            android:id="@+id/searchForum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewForum"
+            android:text="Search for forum" />
+
+        <Button
             android:id="@+id/openSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

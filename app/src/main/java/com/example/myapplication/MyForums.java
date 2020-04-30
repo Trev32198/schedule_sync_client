@@ -34,9 +34,6 @@ public class MyForums extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new MyForumsDataAdapter(myForums);
-
-        Button deleteButton = findViewById(R.id.deleteForum);
-
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         final ArrayList<DiscussionThread> finalForumEvents = myForums;
