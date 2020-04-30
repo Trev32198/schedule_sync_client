@@ -91,7 +91,8 @@
         <item>55</item>
     </string-array>
 
-    <string-array name="second">
+    <string-array
+        name="second">
         <item>0</item>
         <item>5</item>
         <item>10</item>
@@ -104,6 +105,14 @@
         <item>45</item>
         <item>50</item>
         <item>55</item>
+    </string-array>
+
+    <string-array
+        name="search">
+        <item>Sort by thread name</item>
+        <item>Sort by course</item>
+        <item>Sort by newest post time</item>
+        <item>Sort by oldest post time</item>
     </string-array>
 
 </resources>

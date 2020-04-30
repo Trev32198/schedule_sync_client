@@ -26,7 +26,7 @@ public class HomeScreen extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void syncCalendars(View view){
-        //Calendar.syncCalendars();
+        startActivity(new Intent(HomeScreen.this, ViewAssignments.class));
     }
 
     public void createZoomScreen(View view){
@@ -43,5 +43,9 @@ public class HomeScreen extends AppCompatActivity {
 
     public void viewForum(View view){
         startActivity(new Intent(HomeScreen.this, ViewForumList.class ));
+    }
+
+    public void myForums(View view) {
+        startActivity(new Intent(HomeScreen.this, MyForums.class));
     }
 }

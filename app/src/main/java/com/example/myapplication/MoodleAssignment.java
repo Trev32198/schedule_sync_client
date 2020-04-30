@@ -22,7 +22,7 @@ public class MoodleAssignment
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    String getDateString() {
+    public String getDateString() {
         return getYear() + "-" + getMonth() + "-" + getDay();
     }
 
