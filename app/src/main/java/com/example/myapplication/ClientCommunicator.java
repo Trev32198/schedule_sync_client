@@ -244,13 +244,16 @@ public class ClientCommunicator
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     static boolean getThreads() {
         try {
-            // Log in
-            MoodleAPI.setCredentials();
-            MoodleAPI.checkCredentials();
-            // First get a list of course IDs
-            // So we can tell the server which course Zoom codes to return
-            if (!MoodleAPI.fetchClassList()) {
-                return false;
+            // Do not pull course list again if already pulled
+            if (!MoodleAPI.haveFetchedCourseList()) {
+                // Log in
+                MoodleAPI.setCredentials();
+                MoodleAPI.checkCredentials();
+                // First get a list of course IDs
+                // So we can tell the server which course Zoom codes to return
+                if (!MoodleAPI.fetchClassList()) {
+                    return false;
+                }
             }
             ArrayList<MoodleCourse> enrolledCourses = MoodleAPI.getCourseList();
             StringBuilder enrolledCourseIDs = new StringBuilder();

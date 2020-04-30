@@ -28,6 +28,12 @@ public class MoodleAPI {
     private static ArrayList<MoodleCourse> courseList = new ArrayList<>();
     private static ArrayList<MoodleAssignment> assignmentList = new ArrayList<>();
 
+    private static boolean fetchedCourses = false;
+
+    public static boolean haveFetchedCourseList() {
+        return fetchedCourses;
+    }
+
     // To set the user's credentials before trying to pull data
     static void setCredentials() {
         username = SettingsManager.getMoodleUsername();
@@ -190,6 +196,7 @@ public class MoodleAPI {
         System.out.println("Courses: ");
         for (MoodleCourse course : courseList)
             System.out.println("Course shortname, ID: " + course.getShortName() + ", " + course.getID());
+        fetchedCourses = true;
         System.out.println();
         return true;
     }

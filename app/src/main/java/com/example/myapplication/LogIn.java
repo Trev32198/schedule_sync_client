@@ -3,12 +3,16 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
 
 public class LogIn extends AppCompatActivity {
 
@@ -38,17 +42,28 @@ public class LogIn extends AppCompatActivity {
         password = findViewById(R.id.enterPassword);
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void logInFunction(View view){
         if (TextUtils.isEmpty(userName.getText())){
             userName.setError("Username is required");
         }
         if (TextUtils.isEmpty((password.getText()))){
             password.setError(("Password is required"));
-        }
-        else {
+        } else {
             ClientCommunicator.setCredentials(userName.getText().toString(), password.getText().toString(), "pw");
-                    startActivity(new Intent(LogIn.this, HomeScreen.class));
-                    LogIn.this.finish();
+            // Check if we have a Moodle account set
+            if (!SettingsManager.getMoodleUsername().equals("")) {
+                MoodleAPI.setCredentials();
+                MoodleAPI.checkCredentials();
+                try {
+                    MoodleAPI.fetchClassList();
+                } catch (IOException e) {
+                    System.out.println("Automatic retrieval of Moodle courses on login failed!");
+                }
+            }
+            startActivity(new Intent(LogIn.this, HomeScreen.class));
+            LogIn.this.finish();
         }
 
     }
