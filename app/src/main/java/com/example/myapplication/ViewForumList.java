@@ -21,6 +21,7 @@ public class ViewForumList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ForumDataAdapter mAdapter;
     private  RecyclerView.LayoutManager mLayoutManager;
+    static ArrayList<DiscussionThread> forumEvents;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,10 @@ public class ViewForumList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        ArrayList<DiscussionThread> forumEvents;
+
         ClientCommunicator.getThreads();
         forumEvents = ServerResponseParser.parseDiscussionThreads();
+        forumEvents.add( new DiscussionThread("what", "csc123"));
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
@@ -41,6 +43,8 @@ public class ViewForumList extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+
 
         final ArrayList<DiscussionThread> finalForumEvents = forumEvents;
         mAdapter.setOnItemClickListener(new ForumDataAdapter.OnItemClickListener() {
