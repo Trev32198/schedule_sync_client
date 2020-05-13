@@ -61,7 +61,6 @@
             android:id="@+id/searchForum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="searchSreen"
             android:text="Search for forum" />
 
         <Button
