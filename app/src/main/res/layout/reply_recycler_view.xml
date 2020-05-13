@@ -32,7 +32,7 @@
             android:id="@+id/replyToSendBody"
             android:layout_width="394dp"
             android:layout_height="83dp"
-            android:text="Enter Comment"
+            android:hint="Enter Comment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
