@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class DialogSearch extends AppCompatDialogFragment {
     @NonNull
-    Spinner sortSpinner;
+    private Spinner sortSpinner;
     private DialogSort listener;
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
