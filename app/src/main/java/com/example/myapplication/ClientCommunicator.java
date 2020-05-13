@@ -315,6 +315,17 @@ public class ClientCommunicator
         }
     }
 
+    // For seeing if credentials are OK
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    static boolean checkLogin(String username2, String password2) {
+        username = username2;
+        authToken = password2;
+        authType = "pw";
+        // Instead of modifying server, just run a test to see if a simple command is successful
+        searchUser("Not a real username");
+        return latestResult.contains(SUCCESS);
+    }
+
     static String getUsername() {
         return username;
     }
