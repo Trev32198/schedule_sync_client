@@ -31,6 +31,7 @@
     <string name="chooseSecond">Choose a second</string>
 
     <string-array name="months">
+        <item>Select Month</item>
         <item>January</item>
         <item>February</item>
         <item>March</item>
@@ -46,10 +47,12 @@
     </string-array>
 
     <string-array name="years">
+        <item>Select Year</item>
         <item>2020</item>
-    </string-array>
+        </string-array>
 
     <string-array name="hour">
+        <item>Select Hour</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -77,6 +80,7 @@
     </string-array>
 
     <string-array name="minute">
+        <item>Select Minute</item>
         <item>0</item>
         <item>5</item>
         <item>10</item>
@@ -92,6 +96,7 @@
     </string-array>
 
     <string-array name="second">
+        <item>"Select Second"</item>
         <item>0</item>
         <item>5</item>
         <item>10</item>
