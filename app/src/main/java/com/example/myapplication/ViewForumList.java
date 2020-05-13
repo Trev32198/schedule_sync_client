@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,12 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ViewForumList extends AppCompatActivity {
+public class ViewForumList extends AppCompatActivity implements DialogSearch.DialogSort {
 
     private RecyclerView mRecyclerView;
     private ForumDataAdapter mAdapter;
-    private  RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager mLayoutManager;
     static ArrayList<DiscussionThread> forumEvents;
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,6 @@ public class ViewForumList extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarSearch);
         setSupportActionBar(toolbar);
-
 
 
         ClientCommunicator.getThreads();
@@ -45,7 +47,6 @@ public class ViewForumList extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
 
-
         final ArrayList<DiscussionThread> finalForumEvents = forumEvents;
         mAdapter.setOnItemClickListener(new ForumDataAdapter.OnItemClickListener() {
             @Override
@@ -57,6 +58,7 @@ public class ViewForumList extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -67,9 +69,47 @@ public class ViewForumList extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.searchIcon) {
-            startActivity(new Intent(ViewForumList.this, PopSearch.class));
+            openDialog();
+            //startActivity(new Intent(ViewForumList.this, PopSearch.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openDialog() {
+        DialogSearch dialogSearch = new DialogSearch();
+        dialogSearch.show(getSupportFragmentManager(), "Sort");
+    }
+
+    @Override
+    public void applySort(String spinnerSelection) {
+        switch (spinnerSelection) {
+            case "Sort by thread name":
+                Sorter.setSortMode("NAME");
+                Sorter.setReverse(false);
+                startActivity(new Intent(ViewForumList.this, ViewForumList.class));
+                finish();
+                break;
+            case "Sort by course":
+                Sorter.setSortMode("COURSE");
+                Sorter.setReverse(false);
+                startActivity(new Intent(ViewForumList.this, ViewForumList.class));
+                finish();
+                break;
+            case "Sort by newest post time":
+                Sorter.setSortMode("TIME");
+                Sorter.setReverse(true);
+                startActivity(new Intent(ViewForumList.this, ViewForumList.class));
+                finish();
+                break;
+            case "Sort by oldest post time":
+                Sorter.setSortMode("TIME");
+                Sorter.setReverse(false);
+                startActivity(new Intent(ViewForumList.this, ViewForumList.class));
+                finish();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + spinnerSelection);
+        }
     }
 }

@@ -21,9 +21,6 @@
             android:theme="@style/AppTheme.CustomName" />
 
         <activity
-            android:name=".PopSearch"
-            android:theme="@style/AppTheme.CustomName" />
-        <activity
             android:name=".MyForums"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
