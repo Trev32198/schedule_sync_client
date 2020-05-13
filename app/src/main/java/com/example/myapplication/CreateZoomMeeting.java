@@ -26,6 +26,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
     EditText zoomCode;
     ZoomEvent zoomEvent;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
         return months.indexOf(monthName) + 1;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void addItemsOnSpinner2() {
         Spinner classSpinner = findViewById(R.id.classChoose);
         // Get course list from Moodle API
@@ -61,6 +63,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
             e.printStackTrace();
         }
         ArrayList<String> courseNames = new ArrayList<>();
+        courseNames.add("Select Course");
         for (MoodleCourse course : MoodleAPI.getCourseList()) {
             courseNames.add(course.getShortName());
         }
@@ -88,6 +91,24 @@ public class CreateZoomMeeting extends AppCompatActivity {
                 zoomCode.getText().toString(), classChoice.getSelectedItem().toString());
         System.out.println("Day is set to: " + day.getText().toString());
 
+        if (month.getSelectedItem().toString().equals("Select Month")){
+            month.setSelection(1);
+        }
+        if (year.getSelectedItem().toString().equals("Select Year")){
+            year.setSelection(1);
+        }
+        if (hour.getSelectedItem().toString().equals("Select Hour")){
+            hour.setSelection(1);
+        }
+        if (minute.getSelectedItem().toString().equals("Select Minute")){
+            minute.setSelection(1);
+        }
+        if (second.getSelectedItem().toString().equals("Select Second")){
+            second.setSelection(1);
+        }
+        if (classChoice.getSelectedItem().toString().equals("Select Class")){
+            classChoice.setSelection(1);
+        }
         if (ClientCommunicator.postZoomEvent(zoomEvent)) {
             CreateZoomMeeting.this.finish();
         }
@@ -95,12 +116,5 @@ public class CreateZoomMeeting extends AppCompatActivity {
             startActivity(new Intent(CreateZoomMeeting.this, CreateZoomMeeting.class));
             CreateZoomMeeting.this.finish();
         }
-
-
     }
-
-
-
-
-
 }
