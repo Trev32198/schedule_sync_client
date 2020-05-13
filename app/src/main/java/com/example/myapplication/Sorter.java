@@ -95,6 +95,7 @@ public class Sorter {
     // Be careful, this uses ClientCommunicator and therefore will change what getLastestResult returns
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private static ArrayList<DiscussionThread> sortThreadByPostTime(ArrayList<DiscussionThread> threads) {
+        System.out.println("Initiating time sort");
         ArrayList<DiscussionThread> output = new ArrayList<>();
         // Get time of last post for every thread
         // Insert each in correct location in output
@@ -102,8 +103,11 @@ public class Sorter {
             thread.setLastPostTime();
             int lastAcceptableIndex = 0;
             for (int i = 0; i < output.size(); i++) {
-                if (thread.getLastPostTime().comesAfter(output.get(i).getLastPostTime())) {
-                    lastAcceptableIndex = i;
+                if (!thread.getLastPostTime().comesAfter(output.get(i).getLastPostTime())) {
+                    System.out.println(thread.getLastPostTime() + " does not come after " + output.get(i).getLastPostTime());
+                } else {
+                    System.out.println(thread.getLastPostTime() + " comes after " + output.get(i).getLastPostTime());
+                    lastAcceptableIndex++;
                 }
             }
             output.add(lastAcceptableIndex, thread);

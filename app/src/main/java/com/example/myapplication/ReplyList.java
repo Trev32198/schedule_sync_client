@@ -52,5 +52,9 @@ public class ReplyList extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void sendReply(View view){
         ClientCommunicator.postReply(forumEvent, reply.getText().toString());
+        Intent intent2 = new Intent(ReplyList.this, ReplyList.class);
+        intent2.putExtra("ForumThread", forumEvent);
+        startActivity(intent2);
+        this.finish();
     }
 }

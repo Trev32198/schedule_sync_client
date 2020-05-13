@@ -70,6 +70,7 @@ public class DiscussionThread implements Parcelable {
                     date.getDate(), date.getHours(), date.getMinutes());
         }
         this.lastPostTime = lastPostTime;
+        System.out.println("Set last post time: " + this.toString());
         return true;
     }
 
@@ -98,6 +99,7 @@ public class DiscussionThread implements Parcelable {
     }
 
     // For debug purposes
+    @Override
     public String toString() {
         return this.threadName + " in course " + this.associatedCourse + " at time " + this.lastPostTime.toString();
     }

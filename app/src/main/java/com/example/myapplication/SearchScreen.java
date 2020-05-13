@@ -1,14 +1,12 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SearchScreen extends AppCompatActivity {
 
@@ -29,6 +27,7 @@ public class SearchScreen extends AppCompatActivity {
 
     public void searchName(View view){
         EditText forumName = findViewById(R.id.textName);
+        Searcher.setSearchMode("NAME");
         Intent intent = new Intent(SearchScreen.this, SearchResults.class);
         intent.putExtra("ForumThread", forumName.getText().toString());
         startActivity(intent);
@@ -37,6 +36,7 @@ public class SearchScreen extends AppCompatActivity {
 
     public void searchPoster(View view){
         EditText posterName = findViewById(R.id.textPoster);
+        Searcher.setSearchMode("CREATOR");
         Intent intent = new Intent(SearchScreen.this, SearchResults.class);
         intent.putExtra("ForumThread", posterName.getText().toString());
         startActivity(intent);
@@ -45,6 +45,7 @@ public class SearchScreen extends AppCompatActivity {
 
     public void searchCourse(View view){
         EditText className = findViewById(R.id.textCourse);
+        Searcher.setSearchMode("COURSE");
         Intent intent = new Intent(SearchScreen.this, SearchResults.class);
         intent.putExtra("ForumThread", className.getText().toString());
         startActivity(intent);

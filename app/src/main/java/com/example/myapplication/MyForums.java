@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +23,12 @@ public class MyForums extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
-        myForums = ClientCommunicator.searchThreadsByCreator(ClientCommunicator.getUsername());
+        // Need to search for current user
+        Searcher.setSearchMode("CREATOR");
+        // Bump order by default
+        Sorter.setSortMode("TIME");
+        Sorter.setReverse(true);
+        myForums = Searcher.search(ClientCommunicator.getUsername());
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new MyForumsDataAdapter(myForums);
