@@ -11,12 +11,12 @@
 
     <RelativeLayout
         android:layout_width="397dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/zoomListTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="249dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/zoomListCourse"
             android:layout_width="78dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
