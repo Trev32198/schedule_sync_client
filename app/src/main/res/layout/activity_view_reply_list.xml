@@ -11,11 +11,12 @@
 
     <RelativeLayout
         android:layout_width="397dp"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/replyBody"
+            style="@android:style/TextAppearance.Small"
             android:layout_width="242dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -24,13 +25,12 @@
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
             android:layout_marginBottom="0dp"
-            android:text="Line 1"
-            style="@android:style/TextAppearance.Small" />
+            android:text="Line 1" />
 
         <TextView
             android:id="@+id/replyDate"
             android:layout_width="78dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -46,7 +46,7 @@
         <TextView
             android:id="@+id/replyCreator"
             android:layout_width="78dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
