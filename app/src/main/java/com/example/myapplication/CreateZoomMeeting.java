@@ -91,7 +91,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
         zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.getSelectedItem().toString()),
                 convertMonthToInt(month.getSelectedItem().toString()), Integer.parseInt(day.getText().toString()),
                 Integer.parseInt(hour.getSelectedItem().toString()), Integer.parseInt(minute.getSelectedItem().toString()),
-                zoomCode.getText().toString(), classChoice.getSelectedItem().toString());
+                zoomCode.getText().toString(), classChoice.getSelectedItem().toString(), ClientCommunicator.getUsername());
         System.out.println("Day is set to: " + day.getText().toString());
 
         if (month.getSelectedItem().toString().equals("Select Month")){
