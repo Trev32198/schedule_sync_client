@@ -6,11 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top|center"
-    android:paddingTop="15dp"
-    android:layout_marginTop="5dp"
 
     tools:context=".ExpandZoomEvent">
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#E7655F"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
     <TextView
         android:id="@+id/zoomTitle"
         style="@style/TextAppearance.AppCompat.Large"
