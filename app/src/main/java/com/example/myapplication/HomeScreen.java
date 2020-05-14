@@ -38,8 +38,8 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void syncCalendars(View view){
-        startActivity(new Intent(HomeScreen.this, ViewAssignments.class));
+    public void myZoomEvents(View view){
+        startActivity(new Intent(HomeScreen.this, MyZoomEvents.class));
     }
 
     public void createZoomScreen(View view){

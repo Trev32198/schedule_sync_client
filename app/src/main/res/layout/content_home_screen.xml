@@ -21,10 +21,10 @@
             android:text="My Forums"/>
 
         <Button
-            android:id="@+id/syncCalender"
+            android:id="@+id/myZoomEvents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="syncCalendars"
+            android:onClick="myZoomEvents"
             android:text="Sync Calendar" />
 
         <Button
