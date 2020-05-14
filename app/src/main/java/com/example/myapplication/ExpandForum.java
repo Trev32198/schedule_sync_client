@@ -28,9 +28,9 @@ public class ExpandForum extends AppCompatActivity {
         forumClass = findViewById(R.id.forumClass);
 
         assert forumEvent != null;
-        forumTitle.setText(forumEvent.getThreadName());
-        forumCreator.setText(forumEvent.getCreatorUsername());
-        forumClass.setText(forumEvent.getAssociatedCourse());
+        forumTitle.setText("Title: " + forumEvent.getThreadName());
+        forumCreator.setText("Creator: " + forumEvent.getCreatorUsername());
+        forumClass.setText("Course: " + forumEvent.getAssociatedCourse());
 
     }
 
