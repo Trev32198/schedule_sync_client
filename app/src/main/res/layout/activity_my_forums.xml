@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="411dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="2dp">
 
         <TextView

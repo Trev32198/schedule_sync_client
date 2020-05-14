@@ -20,7 +20,6 @@ public class CreateZoomMeeting extends AppCompatActivity {
     Spinner year;
     Spinner hour;
     Spinner minute;
-    Spinner second;
     Spinner classChoice;
     EditText eventName;
     EditText zoomCode;
@@ -84,40 +83,42 @@ public class CreateZoomMeeting extends AppCompatActivity {
         year = findViewById(R.id.year);
         hour = findViewById(R.id.hour);
         minute = findViewById(R.id.minute);
-        second = findViewById(R.id.second);
         classChoice = findViewById(R.id.classChoose);
         zoomCode = findViewById(R.id.enterZoom);
 
-        zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.getSelectedItem().toString()),
-                convertMonthToInt(month.getSelectedItem().toString()), Integer.parseInt(day.getText().toString()),
-                Integer.parseInt(hour.getSelectedItem().toString()), Integer.parseInt(minute.getSelectedItem().toString()),
-                zoomCode.getText().toString(), classChoice.getSelectedItem().toString(), ClientCommunicator.getUsername());
         System.out.println("Day is set to: " + day.getText().toString());
 
-        if (month.getSelectedItem().toString().equals("Select Month")){
-            month.setSelection(1);
+        boolean proceed = true;
+
+        if (month.getSelectedItem().toString().equals("Select Month") ||
+                year.getSelectedItem().toString().equals("Select Year") ||
+                hour.getSelectedItem().toString().equals("Select Hour") ||
+                minute.getSelectedItem().toString().equals("Select Minute") ||
+                classChoice.getSelectedItem().toString().equals("Select Course")) {
+            proceed = false;
+        } else if (eventName.getText().toString().equals("")) {
+            eventName.setError("A name for the event is required");
+            proceed = false;
+        } else if (day.getText().toString().equals("")) {
+            day.setError("A day is required");
+            proceed = false;
+        } else if (zoomCode.getText().toString().equals("")) {
+            zoomCode.setError("A Zoom code is required");
+            proceed = false;
         }
-        if (year.getSelectedItem().toString().equals("Select Year")){
-            year.setSelection(1);
-        }
-        if (hour.getSelectedItem().toString().equals("Select Hour")){
-            hour.setSelection(1);
-        }
-        if (minute.getSelectedItem().toString().equals("Select Minute")){
-            minute.setSelection(1);
-        }
-        if (second.getSelectedItem().toString().equals("Select Second")){
-            second.setSelection(1);
-        }
-        if (classChoice.getSelectedItem().toString().equals("Select Class")){
-            classChoice.setSelection(1);
-        }
-        if (ClientCommunicator.postZoomEvent(zoomEvent)) {
-            CreateZoomMeeting.this.finish();
-        }
-        else{
-            startActivity(new Intent(CreateZoomMeeting.this, CreateZoomMeeting.class));
-            CreateZoomMeeting.this.finish();
+
+        if (proceed) {
+            zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.getSelectedItem().toString()),
+                    convertMonthToInt(month.getSelectedItem().toString()), Integer.parseInt(day.getText().toString()),
+                    Integer.parseInt(hour.getSelectedItem().toString()), Integer.parseInt(minute.getSelectedItem().toString()),
+                    zoomCode.getText().toString(), classChoice.getSelectedItem().toString(), ClientCommunicator.getUsername());
+
+            if (ClientCommunicator.postZoomEvent(zoomEvent)) {
+                CreateZoomMeeting.this.finish();
+            } else {
+                startActivity(new Intent(CreateZoomMeeting.this, CreateZoomMeeting.class));
+                CreateZoomMeeting.this.finish();
+            }
         }
     }
 }
