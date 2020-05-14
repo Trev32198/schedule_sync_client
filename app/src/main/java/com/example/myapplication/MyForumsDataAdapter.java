@@ -71,7 +71,6 @@ public class MyForumsDataAdapter extends RecyclerView.Adapter<MyForumsDataAdapte
                     }
                 }
             });
-
         }
     }
 
