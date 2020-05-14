@@ -55,12 +55,15 @@ public class CreateZoomMeeting extends AppCompatActivity {
     public void addItemsOnSpinner2() {
         Spinner classSpinner = findViewById(R.id.classChoose);
         // Get course list from Moodle API
-        MoodleAPI.setCredentials();
-        MoodleAPI.checkCredentials();
-        try {
-            MoodleAPI.fetchClassList();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (!MoodleAPI.haveFetchedCourseList()) {
+            MoodleAPI.setCredentials();
+            MoodleAPI.checkCredentials();
+            try {
+                MoodleAPI.fetchClassList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         ArrayList<String> courseNames = new ArrayList<>();
         courseNames.add("Select Course");
