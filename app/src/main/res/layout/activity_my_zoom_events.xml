@@ -11,12 +11,12 @@
 
     <RelativeLayout
         android:layout_width="397dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/myZoomListTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="206dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
