@@ -55,12 +55,15 @@ public class CreateZoomMeeting extends AppCompatActivity {
     public void addItemsOnSpinner2() {
         Spinner classSpinner = findViewById(R.id.classChoose);
         // Get course list from Moodle API
-        MoodleAPI.setCredentials();
-        MoodleAPI.checkCredentials();
-        try {
-            MoodleAPI.fetchClassList();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (!MoodleAPI.haveFetchedCourseList()) {
+            MoodleAPI.setCredentials();
+            MoodleAPI.checkCredentials();
+            try {
+                MoodleAPI.fetchClassList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         ArrayList<String> courseNames = new ArrayList<>();
         courseNames.add("Select Course");
@@ -88,7 +91,7 @@ public class CreateZoomMeeting extends AppCompatActivity {
         zoomEvent = new ZoomEvent(eventName.getText().toString(), Integer.parseInt(year.getSelectedItem().toString()),
                 convertMonthToInt(month.getSelectedItem().toString()), Integer.parseInt(day.getText().toString()),
                 Integer.parseInt(hour.getSelectedItem().toString()), Integer.parseInt(minute.getSelectedItem().toString()),
-                zoomCode.getText().toString(), classChoice.getSelectedItem().toString());
+                zoomCode.getText().toString(), classChoice.getSelectedItem().toString(), ClientCommunicator.getUsername());
         System.out.println("Day is set to: " + day.getText().toString());
 
         if (month.getSelectedItem().toString().equals("Select Month")){

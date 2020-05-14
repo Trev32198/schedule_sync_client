@@ -8,10 +8,10 @@
     tools:context=".SearchScreen">
 
     <EditText
-        android:id="@+id/textName"
+        android:id="@+id/queryBox"
         android:layout_width="match_parent"
         android:layout_height="40sp"
-        android:hint="Enter thread name"
+        android:hint="Enter query"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="55dp" />
@@ -24,14 +24,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textName"
         tools:layout_editor_absoluteX="161dp" />
 
-    <EditText
-        android:id="@+id/textCourse"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Enter course name"
-        app:layout_constraintTop_toBottomOf="@+id/buttonName"
-        tools:layout_editor_absoluteX="178dp" />
-
     <Button
         android:id="@+id/buttonCourse"
         android:layout_width="match_parent"
@@ -39,14 +31,6 @@
         android:text="search by course"
         app:layout_constraintTop_toBottomOf="@+id/textCourse"
         tools:layout_editor_absoluteX="0dp" />
-
-    <EditText
-        android:id="@+id/textPoster"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:hint="Enter poster name"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCourse"
-        tools:layout_editor_absoluteX="172dp" />
 
     <Button
         android:id="@+id/buttonPoster"

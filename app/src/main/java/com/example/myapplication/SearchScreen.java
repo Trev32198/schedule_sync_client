@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,11 +14,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class SearchScreen extends AppCompatDialogFragment {
 
-    private EditText threadName;
+    private EditText queryTextbox;
     private Button threadSearch;
-    private EditText courseName;
     private Button courseSearch;
-    private EditText posterName;
     private Button posterSearch;
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -27,11 +24,9 @@ public class SearchScreen extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.activity_search, null);
 
-        threadName = view.findViewById(R.id.textName);
+        queryTextbox = view.findViewById(R.id.queryBox);
         threadSearch = view.findViewById(R.id.buttonName);
-        courseName = view.findViewById(R.id.textCourse);
         courseSearch = view.findViewById(R.id.buttonCourse);
-        posterName = view.findViewById(R.id.textPoster);
         posterSearch = view.findViewById(R.id.buttonPoster);
 
         threadSearch.setOnClickListener(new View.OnClickListener() {
@@ -63,21 +58,21 @@ public class SearchScreen extends AppCompatDialogFragment {
     public void searchName(){
         Searcher.setSearchMode("NAME");
         Intent intent = new Intent(getActivity(), SearchResults.class);
-        intent.putExtra("ForumThread", threadName.getText().toString());
+        intent.putExtra("ForumThread", queryTextbox.getText().toString());
         startActivity(intent);
     }
 
     public void searchPoster(){
         Searcher.setSearchMode("CREATOR");
         Intent intent = new Intent(getActivity(), SearchResults.class);
-        intent.putExtra("ForumThread", posterName.getText().toString());
+        intent.putExtra("ForumThread", queryTextbox.getText().toString());
         startActivity(intent);
     }
 
     public void searchCourse(){
         Searcher.setSearchMode("COURSE");
         Intent intent = new Intent(getActivity(), SearchResults.class);
-        intent.putExtra("ForumThread", courseName.getText().toString());
+        intent.putExtra("ForumThread", queryTextbox.getText().toString());
         startActivity(intent);
     }
 }

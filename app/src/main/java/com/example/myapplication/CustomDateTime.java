@@ -86,6 +86,6 @@ public class CustomDateTime {
     }
 
     public String toString() {
-        return year + "-" + month + "-" + day + " " + hour + ":" + minute;
+        return year + "-" + month + "-" + day + " " + hour + ":" + ((minute < 10) ? ("0" + minute) : minute);
     }
 }

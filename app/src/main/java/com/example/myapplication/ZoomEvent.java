@@ -11,10 +11,12 @@ public class ZoomEvent implements Parcelable
     private String course;
     private int year, month, day;
     private int hour, minute;
+    private String poster;
     //added room code for the new zoom rooms
     // Need title and date / time to make an event
-    ZoomEvent(String event_title, int year, int month, int day, int hour, int minute, String code, String courseID)
+    ZoomEvent(String event_title, int year, int month, int day, int hour, int minute, String code, String courseID, String poster)
     {
+        this.poster = poster;
         title = event_title;
         this.year = year;
         this.month = month;
@@ -94,5 +96,13 @@ public class ZoomEvent implements Parcelable
     }
     String getRoomCode() {
         return roomCode;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }

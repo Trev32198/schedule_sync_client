@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,17 +16,21 @@ public class ViewZoomList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ZoomDataAdapter mAdapter;
     private  RecyclerView.LayoutManager mLayoutManager;
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
         final ArrayList<ZoomEvent> zoomEvents = new ArrayList<>();
-        //ClientCommunicator.getZoomEvents();
-        //zoomEvents = ServerResponseParser.parseZoomEvents();
-        zoomEvents.add(new ZoomEvent("what", 1, 1, 1, 1, 1, "nono", "csc111"));
+
+        ClientCommunicator.getZoomEvents();
+        zoomEvents.addAll(ServerResponseParser.parseZoomEvents());
+
+        /*zoomEvents.add(new ZoomEvent("what", 1, 1, 1, 1, 1, "nono", "csc111"));
         zoomEvents.add(new ZoomEvent("who", 1, 1, 1, 1, 1, "yesyes", "csc111"));
-        zoomEvents.add(new ZoomEvent("where", 1, 1, 1, 1, 1, "haha", "csc111"));
+        zoomEvents.add(new ZoomEvent("where", 1, 1, 1, 1, 1, "haha", "csc111"));*/
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
