@@ -15,19 +15,6 @@
         android:orientation="vertical">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="myForums"
-            android:text="My Forums"/>
-
-        <Button
-            android:id="@+id/myZoomEvents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="myZoomEvents"
-            android:text="My Zoom Events" />
-
-        <Button
             android:id="@+id/createZoomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +27,13 @@
             android:layout_height="wrap_content"
             android:onClick="viewZoomMeetings"
             android:text="View Zoom Meetings" />
+
+        <Button
+            android:id="@+id/myZoomEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="myZoomEvents"
+            android:text="My Zoom Events" />
 
         <Button
             android:id="@+id/createForumButton"
@@ -60,6 +54,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Search for forum" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="myForums"
+            android:text="My Forums" />
 
         <Button
             android:id="@+id/openSettings"
