@@ -28,14 +28,13 @@ public class ExpandZoomEvent extends AppCompatActivity {
         zoomCode = findViewById(R.id.zoomCode);
 
         assert zoomEvent != null;
-        zoomTitle.setText(zoomEvent.getTitle());
-        zoomCourse.setText(zoomEvent.getCourse());
-        zoomMonth.setText(String.valueOf(zoomEvent.getMonth()));
-        zoomDay.setText(String.valueOf(zoomEvent.getDay()));
-        zoomYear.setText(String.valueOf(zoomEvent.getYear()));
-        zoomHour.setText(String.valueOf(zoomEvent.getHour()));
-        zoomMinute.setText(String.valueOf(zoomEvent.getMinute()));
-        zoomCode.setText(zoomEvent.getRoomCode());
-
+        zoomTitle.setText(String.format("Title: %s", zoomEvent.getTitle()));
+        zoomCourse.setText(String.format("Course: %s", zoomEvent.getCourse()));
+        zoomMonth.setText(String.format("Month: %s", String.valueOf(zoomEvent.getMonth())));
+        zoomDay.setText(String.format("Day: %s", String.valueOf(zoomEvent.getDay())));
+        zoomYear.setText(String.format("Year: %s", String.valueOf(zoomEvent.getYear())));
+        zoomHour.setText(String.format("Hour: %s", String.valueOf(zoomEvent.getHour())));
+        zoomMinute.setText(String.format("Minute: %s", String.valueOf(zoomEvent.getMinute())));
+        zoomCode.setText(String.format("Zoom Code: %s", zoomEvent.getRoomCode()));
     }
 }
