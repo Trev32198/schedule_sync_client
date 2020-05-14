@@ -28,7 +28,7 @@ public class SearchResults extends AppCompatActivity {
         Sorter.setReverse(true);
         // Submit the query, search type must already be set
         // Sort the results and remove expired threads
-        forumEvents = ExpirationFilter.removeExpired(Sorter.sort(Searcher.search(intent.getStringExtra("ForumThread"))));
+        forumEvents = ExpirationFilter.removeExpired(Sorter.sort(ThreadSearcher.search(intent.getStringExtra("ForumThread"))));
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);

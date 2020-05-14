@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
@@ -14,83 +13,91 @@
 
     <TextView
         android:id="@+id/zoomTitle"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomCourse"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomCode"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomMonth"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomDay"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomYear"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomHour"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
     <TextView
         android:id="@+id/zoomMinute"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingTop="15dp"
-        style="@style/TextAppearance.AppCompat.Large"
 
-        android:text="TextView" />
+        android:text="TextView"
+        android:textIsSelectable="true" />
 
 
 </LinearLayout>
