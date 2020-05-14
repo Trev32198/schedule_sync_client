@@ -27,7 +27,8 @@ public class ServerResponseParser {
             int day = Integer.parseInt(dateData[2]);
             int hour = Integer.parseInt(timeData[0]);
             int minute = Integer.parseInt(timeData[1]);
-            events.add(new ZoomEvent(values[3], year, month, day, hour, minute, values[1], values[4]));
+            String poster = values[0];
+            events.add(new ZoomEvent(values[3], year, month, day, hour, minute, values[1], values[4], values[0]));
         }
         return events;
     }

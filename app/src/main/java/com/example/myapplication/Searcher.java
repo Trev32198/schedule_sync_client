@@ -44,7 +44,7 @@ public class Searcher {
         ArrayList<DiscussionThread> serverResponse = ServerResponseParser.parseDiscussionThreads();
         // Search
         for (DiscussionThread thread : serverResponse) {
-            if (thread.getThreadName().contains(query)) {
+            if (thread.getThreadName().toLowerCase().contains(query.toLowerCase())) {
                 results.add(thread);
             }
         }
@@ -63,7 +63,7 @@ public class Searcher {
         ArrayList<DiscussionThread> serverResponse = ServerResponseParser.parseDiscussionThreads();
         // Search
         for (DiscussionThread thread : serverResponse) {
-            if (thread.getAssociatedCourse().contains(query)) {
+            if (thread.getAssociatedCourse().toLowerCase().contains(query.toLowerCase())) {
                 results.add(thread);
             }
         }
@@ -82,7 +82,7 @@ public class Searcher {
         ArrayList<DiscussionThread> serverResponse = ServerResponseParser.parseDiscussionThreads();
         // Search
         for (DiscussionThread thread : serverResponse) {
-            if (thread.getCreatorUsername().contains(query)) {
+            if (thread.getCreatorUsername().toLowerCase().contains(query.toLowerCase())) {
                 results.add(thread);
             }
         }
