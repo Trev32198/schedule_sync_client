@@ -23,10 +23,8 @@ public class MyZoomEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
-        final ArrayList<ZoomEvent> zoomEvents = new ArrayList<>();
-
-        ClientCommunicator.getZoomEvents();
-        zoomEvents.addAll(ServerResponseParser.parseZoomEvents());
+        ArrayList<ZoomEvent> zoomEvents = ZoomSearcher.getMyZoomEvents();
+        final ArrayList<ZoomEvent> finalZoom = zoomEvents;
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
@@ -39,12 +37,12 @@ public class MyZoomEvents extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MyZoomEvents.this, ExpandZoomEvent.class);
-                intent.putExtra("Zoom Event", zoomEvents.get(position));
+                intent.putExtra("Zoom Event", finalZoom.get(position));
                 startActivity(intent);
 
             }
             public void onDeleteClick(int position) {
-                ClientCommunicator.deleteZoomEvent(zoomEvents.get(position).getRoomCode());
+                ClientCommunicator.deleteZoomEvent(finalZoom.get(position).getRoomCode());
                 finish();
                 startActivity(new Intent(MyZoomEvents.this, MyForums.class));
             }
