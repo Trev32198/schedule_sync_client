@@ -56,21 +56,21 @@ public class SearchScreen extends AppCompatDialogFragment {
     }
 
     public void searchName(){
-        Searcher.setSearchMode("NAME");
+        ThreadSearcher.setSearchMode("NAME");
         Intent intent = new Intent(getActivity(), SearchResults.class);
         intent.putExtra("ForumThread", queryTextbox.getText().toString());
         startActivity(intent);
     }
 
     public void searchPoster(){
-        Searcher.setSearchMode("CREATOR");
+        ThreadSearcher.setSearchMode("CREATOR");
         Intent intent = new Intent(getActivity(), SearchResults.class);
         intent.putExtra("ForumThread", queryTextbox.getText().toString());
         startActivity(intent);
     }
 
     public void searchCourse(){
-        Searcher.setSearchMode("COURSE");
+        ThreadSearcher.setSearchMode("COURSE");
         Intent intent = new Intent(getActivity(), SearchResults.class);
         intent.putExtra("ForumThread", queryTextbox.getText().toString());
         startActivity(intent);

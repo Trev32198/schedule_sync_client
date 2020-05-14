@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
-public class Searcher {
+public class ThreadSearcher {
     private static String searchMode = "NAME";
 
     public static String getSearchMode() {

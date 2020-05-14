@@ -24,11 +24,11 @@ public class MyForums extends AppCompatActivity {
         setContentView(R.layout.recycler_view);
 
         // Need to search for current user
-        Searcher.setSearchMode("CREATOR");
+        ThreadSearcher.setSearchMode("CREATOR");
         // Bump order by default
         Sorter.setSortMode("TIME");
         Sorter.setReverse(true);
-        myForums = Searcher.search(ClientCommunicator.getUsername());
+        myForums = ThreadSearcher.search(ClientCommunicator.getUsername());
         mRecyclerView = findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapter = new MyForumsDataAdapter(myForums);
