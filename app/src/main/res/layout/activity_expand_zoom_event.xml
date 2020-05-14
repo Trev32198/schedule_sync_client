@@ -15,11 +15,12 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#E7655F"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+
     <TextView
         android:id="@+id/zoomTitle"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -30,7 +31,7 @@
         android:id="@+id/zoomCourse"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -41,7 +42,7 @@
         android:id="@+id/zoomCode"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -52,7 +53,7 @@
         android:id="@+id/zoomMonth"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -63,7 +64,7 @@
         android:id="@+id/zoomDay"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -74,7 +75,7 @@
         android:id="@+id/zoomYear"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -85,7 +86,7 @@
         android:id="@+id/zoomHour"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 
@@ -96,7 +97,7 @@
         android:id="@+id/zoomMinute"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="15dp"
 

@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/myZoomListCourse"
             android:layout_width="78dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
