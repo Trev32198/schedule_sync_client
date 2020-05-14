@@ -44,7 +44,7 @@ public class MyZoomEvents extends AppCompatActivity {
             public void onDeleteClick(int position) {
                 ClientCommunicator.deleteZoomEvent(finalZoom.get(position).getRoomCode());
                 finish();
-                startActivity(new Intent(MyZoomEvents.this, MyForums.class));
+                startActivity(new Intent(MyZoomEvents.this, MyZoomEvents.class));
             }
         });
     }
